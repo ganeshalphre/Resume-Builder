@@ -111,6 +111,7 @@
     padding: 1rem;
     flex-basis: 10%;
     text-align: left;
+    font-weight: 400;
 }
 .SectionFive .tool-pdf div{
     flex-basis: 40%;
@@ -146,7 +147,7 @@
 }
 .SectionSix .row-one div {
     display: inline-block;
-    margin: 4rem 7.1rem;
+    margin: 4rem 7rem;
 }
 .SectionSix .row-two {
     display: block;

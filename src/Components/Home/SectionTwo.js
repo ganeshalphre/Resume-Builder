@@ -1,3 +1,5 @@
+// import "~@flaticon/flaticon-uicons/css/all/all";
+
 const SectionTwo = () => {
     return ( 
         <div className="SectionTwo">
@@ -23,7 +25,7 @@ const SectionTwo = () => {
                     <h4>Cover Letter</h4>                                                                                                                                                                                                                                                                                     
                 </div>
                 <div className="tool">
-                    <i className="fa-solid fa-pen-fancy"></i>
+                <i class="fi fi-rr-pen"></i>
                     <h4>Web Resume</h4>                                                                                                                                                                                                                                                                                     
                 </div>
                 <div className="tool">
