@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import "./Components/StyleSheets/typography.css"
 import './App.css';
 import Home from './Components/Home';
 
