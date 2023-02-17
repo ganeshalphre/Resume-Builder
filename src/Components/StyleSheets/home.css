@@ -47,9 +47,13 @@
 .SectionTwo .tool h4 {
     margin-top: 1rem;
 }
-.SectionTwo .tool i {
+/* .SectionTwo .tool i {
     font-size: 4rem;
     color: var(--secondary-color);
+} */
+
+.SectionTwo .tools img {
+    width: 34px;
 }
 
 /* Section 3 */
@@ -149,12 +153,18 @@
     display: inline-block;
     margin: 4rem 7rem;
 }
+.SectionSix .row-one div img{
+    width: 32px;
+}
 .SectionSix .row-two {
     display: block;
 }
 .SectionSix .row-two div {
     display: inline-block;
     margin: 0 4rem;
+}
+.SectionSix .row-two div img{
+    width: 32px
 }
 
 .SectionSeven {
