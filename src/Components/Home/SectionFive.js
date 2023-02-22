@@ -36,7 +36,7 @@ const SectionFive = () => {
                 return (
                     <div className={"tool-pdf"}>
                         <h5>{tool.toolName}</h5>
-                        <a href="/dummy.pdf" download="Resume"><i class="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
+                        <a href="/dummy.pdf" download="Resume"><i className="fa fa-arrow-circle-o-down" aria-hidden="true"></i></a>
                     </div>
                 )
             })}

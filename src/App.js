@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/reset-password/:id" element={<ResetPassword />} />
 
         {/* Dashboard */}
-        {token && <Route exact path="/dashboard/resume" element={<Resume />} />}
+        <Route exact path="/dashboard/resume" element={<Resume />} />
       </Routes>                                                                                           
     </div>
   );
