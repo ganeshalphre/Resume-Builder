@@ -41,7 +41,6 @@ const Resume = () => {
     const [internResponsibilities, setInternResponsibilities] = useState("");
     const [internStartDate, setInternStartDate] = useState([]);
     const [internEndDate, setInternEndDate] = useState("");
-    const [internAchievements, setInternAcheivements] = useState([])
     const [internships, setInternships] = useState([]);
     
     // Education
@@ -73,7 +72,6 @@ const Resume = () => {
     const [volunteerCompanyCity, setVolunteerCompanyCity] = useState("");
     const [volunteerCompanyCountry, setVolunteerCompanyCountry] = useState("");
     const [volunteerResponsibilities, setVolunteerResponsibilities] = useState([]);
-    const [volunteerAchievements, setVolunteerAchievements] = useState([]);
     const [volunteerExperiences, setVolunteerExperiences] = useState([]);
 
     // HonorsAndAwards
@@ -117,12 +115,14 @@ const Resume = () => {
     // Patent
     const [patentTitle, setPatentTitle] = useState("");
     const [patentNumber, setPatentNumber] = useState("");
-    const [patentDescription, setPatentDescription] = useState("");
+    const [patentDescription, setPatentDescription] = useState([]);
     const [patentStatus, setPatentStatus] = useState("");
+    const [patents, setPatents] = useState([]);
 
     // Publication
     const [publicationName, setPublicationName] = useState("");
-    const [publicationDescription, setPublicationDescription] = useState("");
+    const [publicationDescription, setPublicationDescription] = useState();
+    const [publicationDate, setPublictionDate] = useState("");
     const [publications, setPublications] = useState([]);
 
     // Workshop
@@ -133,7 +133,6 @@ const Resume = () => {
     const [workshopCompanyCity, setWorkshopCompanyCity] = useState("");
     const [workshopCompanyCountry, setWorkshopCompanyCountry] = useState("");
     const [workshopResponsibilities, setWorkshopResponsibilities] = useState([]);
-    const [workshopAchievements, setWorkshopAchievements] = useState([]);
     const [workshops, setWorkshops] = useState([]);
 
     // Reference
@@ -169,7 +168,7 @@ const Resume = () => {
     const addIntership = (e) => {
         e.preventDefault();
         if(internDesignation != '' && internCompanyName != '' && internCompanyCity != "" && internCompanyCountry != '' && internResponsibilities != '' && internStartDate != '' && internEndDate != '' ) {
-            setInternships(prev => [...prev , {designation: internDesignation, companyName: internCompanyName, city: internCompanyCity, country: internCompanyCountry, responsibilities: internResponsibilities, startedAt: internStartDate, endedAt: internEndDate, achievements: internAchievements}]);
+            setInternships(prev => [...prev , {designation: internDesignation, companyName: internCompanyName, city: internCompanyCity, country: internCompanyCountry, responsibilities: internResponsibilities, startedAt: internStartDate, endedAt: internEndDate}]);
             setInternDesignation('');
             setInternCompanyName('');
             setInternCompanyCity('');
@@ -177,7 +176,6 @@ const Resume = () => {
             setInternResponsibilities('');
             setInternStartDate('');
             setInternEndDate('');
-            setInternAcheivements('')
         } else {
             console.log('please fill missing details')
         }
@@ -217,8 +215,8 @@ const Resume = () => {
 
     const addVolunteers = (e) => {
         e.preventDefault();
-        if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "" && volunteerAchievements != '') {
-            setVolunteerExperiences(prev => [...prev , {designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities, achievements: volunteerAchievements}]);
+        if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "" ) {
+            setVolunteerExperiences(prev => [...prev , {designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities}]);
             setVolunteerDesignation("");
             setVolunteerCompanyName('');
             setVolunteerStartDate('');
@@ -226,7 +224,6 @@ const Resume = () => {
             setVolunteerCompanyCity('');
             setVolunteerCompanyCountry("");
             setVolunteerResponsibilities("");
-            setVolunteerAchievements("");
         } else {
             console.log('please fill missing details')
         }
@@ -293,16 +290,15 @@ const Resume = () => {
 
     const addWorkshops = (e) => {
         e.preventDefault();
-        if(workshopDesignation != '' && workshopCompanyName != '' && workshopStartDate != "" && workshopEndDate != '' && workshopCompanyCity != '' && workshopCompanyCountry != "" && workshopResponsibilities != "" && workshopAchievements != '') {
-            setWorkshops(prev => [...prev , {designation: workshopDesignation, companyName: workshopCompanyName, startedAt: workshopStartDate, endedAt: workshopEndDate, city: workshopCompanyCity, country: workshopCompanyCountry, responsibilities: workshopResponsibilities, achievements: workshopAchievements}]);
+        if(workshopDesignation != '' && workshopCompanyName != '' && workshopStartDate != "" && workshopEndDate != '' && workshopCompanyCity != '' && workshopCompanyCountry != "" && workshopResponsibilities != "") {
+            setWorkshops(prev => [...prev , {designation: workshopDesignation, companyName: workshopCompanyName, startedAt: workshopStartDate, endedAt: workshopEndDate, city: workshopCompanyCity, country: workshopCompanyCountry, responsibilities: workshopResponsibilities}]);
             setWorkshopDesignation("");
             setWorkshopCompanyName('');
             setWorkshopStartDate('');
             setWorkshopEndDate('');
             setWorkshopCompanyCity('');
             setWorkshopCompanyCountry("");
-            setWorkshopResponsibilities("");
-            setWorkshopAchievements("");
+            setWorkshopResponsibilities([]);
         } else {
             console.log('please fill missing details')
         }
@@ -320,24 +316,27 @@ const Resume = () => {
         }
     }
 
+    const addPatent = (e) => {
+        e.preventDefault();
+        if(patentTitle != '' && patentNumber != '' && patentStatus != "" && patentDescription != '') {
+            setPatents(prev => [...prev , {title: patentTitle, number: patentNumber, descriptions: patentDescription, status: patentStatus}]);
+            setPatentTitle("");
+            setPatentNumber("");
+            setPatentDescription([]);
+            setPatentStatus("");
+        } else {
+            console.log('please fill missing details')
+        }
+    }
+
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        // addExperience(e);
-        // addIntership(e);
-        // await addEducation(e);
-        // addProject(e);
-        // addVolunteers();
-        // addTraining(e);
-        // addCertification(e);
-        // addCourse(e);
-        // addWorkshops(e);
-        // addReference(e);
         if(designation != '' && companyName != '' && companyCity != "" && companyCountry != '' && responsibilities != '' && startDate != '' && endDate != '') {
             experiences.push({designation, companyName, city: companyCity, country: companyCountry, responsibilities, startedAt: startDate, endedAt: endDate});
         }
         if(internDesignation != '' && internCompanyName != '' && internCompanyCity != "" && internCompanyCountry != '' && internResponsibilities != '' && internStartDate != '' && internEndDate != '' ) {
-            internships.push({designation: internDesignation, companyName: internCompanyName, city: internCompanyCity, country: internCompanyCountry, responsibilities: internResponsibilities, startedAt: internStartDate, endedAt: internEndDate, achievements: internAchievements});
+            internships.push({designation: internDesignation, companyName: internCompanyName, city: internCompanyCity, country: internCompanyCountry, responsibilities: internResponsibilities, startedAt: internStartDate, endedAt: internEndDate});
         }
         if(degreeName != '' && collegeName != '' && collegeCity != "" && collegeCountry != '' && collegeStartDate != '' && collegeEndDate != '' && score != "") {
             educations.push({degreeName, collegeName, city: collegeCity, country: collegeCountry, startedAt: collegeStartDate, endedAt: collegeEndDate, score: score})
@@ -345,8 +344,8 @@ const Resume = () => {
         if(projectNumber != '' && projectTitle != '' && projectStartDate != "" && projectEndDate != '' && projectDescription != '') {
             projects.push({number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, description: projectDescription});
         }
-        if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "" && volunteerAchievements != '') {
-            volunteerExperiences.push({designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities, achievements: volunteerAchievements});
+        if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "") {
+            volunteerExperiences.push({designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities});
         }
         if(trainingInstutionName != '' && trainingTitle != '' && trainingCity != "" && trainingCountry != '' && trainingStartDate != '' && trainingEndDate != '' && trainingScore != '') {
             trainings.push({institutionName: trainingInstutionName, title: trainingTitle, startedAt: trainingStartDate, endedAt: trainingEndDate, city: trainingCity, country: trainingCountry, score: trainingScore});
@@ -360,12 +359,13 @@ const Resume = () => {
         if(publicationName != '' && publicationDescription!= '') {
             publications.push({name: publicationName, description: publicationDescription});
         }
-        if(workshopDesignation != '' && workshopCompanyName != '' && workshopStartDate != "" && workshopEndDate != '' && workshopCompanyCity != '' && workshopCompanyCountry != "" && workshopResponsibilities != "" && workshopAchievements != '') {
-            workshops.push({designation: workshopDesignation, companyName: workshopCompanyName, startedAt: workshopStartDate, endedAt: workshopEndDate, city: workshopCompanyCity, country: workshopCompanyCountry, responsibilities: workshopResponsibilities, achievements: workshopAchievements});
+        if(workshopDesignation != '' && workshopCompanyName != '' && workshopStartDate != "" && workshopEndDate != '' && workshopCompanyCity != '' && workshopCompanyCountry != "" && workshopResponsibilities != "") {
+            workshops.push({designation: workshopDesignation, companyName: workshopCompanyName, startedAt: workshopStartDate, endedAt: workshopEndDate, city: workshopCompanyCity, country: workshopCompanyCountry, responsibilities: workshopResponsibilities});
         }
         if(referenceName != '' && referenceDesignation!= '' && referenceCompany != "" && referenceEmail != "") {
             references.push({name: referenceName, designation: referenceDesignation, company: referenceCompany, email: referenceEmail});
         }
+        console.log(trainings);
             const d = {
             contact: {
                 firstName,
@@ -409,7 +409,7 @@ const Resume = () => {
                 passport
             }
         }
-        console.log(languageKnown);
+        console.log({d});
         try {
             const {data} = await axios.post(`${process.env.REACT_APP_API}/create-resume`, d);
             console.log({data})
@@ -443,11 +443,7 @@ const Resume = () => {
     const changeInternResponsibilities = (val) => {
         let internResponsibilitiesArr = val.split("\n")
         setInternResponsibilities(internResponsibilitiesArr);
-    }                                                                                              
-    const changeInternAchievements = (val) => {
-        let internAchievementsArr = val.split("\n")
-        setInternAcheivements(internAchievementsArr);
-    }                                                                                              
+    }                                                                                            
     const changeInterest = (val) => {
         let interestArr = val.split("\n")
         setInterest(interestArr);
@@ -456,18 +452,10 @@ const Resume = () => {
         let arr = val.split("\n")
         setVolunteerResponsibilities(arr);
     }                                                                                              
-    const changeVolunteerAchievements = (val) => {
-        let arr = val.split("\n")
-        setVolunteerAchievements(arr);
-    }                                                                                              
     const changeWorkshopResponsibilities = (val) => {
         let arr = val.split("\n")
         setWorkshopResponsibilities(arr);
-    }                                                                                              
-    const changeWorkshopAchievements = (val) => {
-        let arr = val.split("\n")
-        setWorkshopAchievements(arr);
-    }
+    }    
     const changeHonorAndAwards = (val) => {
         let arr = val.split("\n");
         setHonorsAndAwards(arr);
@@ -477,6 +465,16 @@ const Resume = () => {
         console.log(arr);
         setLanguageKnown(arr);
     }                                                                                         
+    const changePatentDescription = (val) => {
+        let arr = val.split("\n");
+        console.log(arr);
+        setPatentDescription(arr);
+    }    
+    const onChangePublicationDescription = (val) => {
+        let arr = val.split("\n");
+        console.log(arr);
+        setPublicationDescription(arr);
+    }                                                                                     
     return ( 
         <div className="Resume">
             <form onSubmit={(e) => handleSubmit(e)}>
@@ -755,18 +753,6 @@ const Resume = () => {
                                     })}
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Achievements</span>
-                                </div>
-                                <div className='col-75'>
-                                    {internship.achievements.map(achievement => {
-                                        return (
-                                            <span>{achievement}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
                             
                             </>
                         )
@@ -825,14 +811,6 @@ const Resume = () => {
                         </div>
                         <div className="col-75">
                             <textarea type="text" id="responsibilities" name="responsibilities" placeholder="Your responsibilities" onChange={(e) => changeInternResponsibilities(e.target.value)}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-20">
-                            <label for="achievements">achievements</label>
-                        </div>
-                        <div className="col-75">
-                            <textarea type="text" id="achievements" name="achievements" placeholder="Your achievements" onChange={(e) => changeInternAchievements(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1143,18 +1121,6 @@ const Resume = () => {
                                     })}
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Achievements</span>
-                                </div>
-                                <div className='col-75'>
-                                    {volunteer.achievements.map(achievement => {
-                                        return (
-                                            <span>{achievement}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
                             
                             </>
                         )
@@ -1213,14 +1179,6 @@ const Resume = () => {
                         </div>
                         <div className="col-75">
                             <textarea type="text" id="description" name="description" placeholder="Volunteer responsibilities" onChange={(e) => changeVolunteerResponsibilities(e.target.value)}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-20">
-                            <label for="achievements">Achievements</label>
-                        </div>
-                        <div className="col-75">
-                            <textarea type="text" id="description" name="description" placeholder="Volunteer achievements" onChange={(e) => changeVolunteerAchievements(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1654,6 +1612,49 @@ const Resume = () => {
 
                     {/* Patent */}
                     <h4>Patent</h4>
+                    {patents?.map(patent => {
+                        const {title, number, status, descriptions} = patent;
+                        return (
+                            <>
+                            <div className='row'>
+                                <div className='col-20'>
+                                    <span>Title</span>
+                                </div>
+                                <div className='col-75'>
+                                    <span>{title}</span>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-20'>
+                                    <span>Number</span>
+                                </div>
+                                <div className='col-75'>
+                                    <span>{number}</span>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-20'>
+                                    <span>Validity</span>
+                                </div>
+                                <div className='col-75'>
+                                    <span>{status}</span>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-20'>
+                                    <span>Description</span>
+                                </div>
+                                <div className='col-75'>
+                                    {descriptions.map(des => {
+                                        return (
+                                            <span>{des}</span>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            </>
+                        )
+                    })}
                     <div className="row">
                         <div className="col-20">
                             <label for="patentTitle">Patent Title</label>
@@ -1675,7 +1676,7 @@ const Resume = () => {
                             <label for="patentDescription">Patent Description</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="patentDescription" name="patentDescription" placeholder="your patent description" value={patentDescription} onChange={(e) =>setPatentDescription(e.target.value)}/>
+                            <textarea type="text" id="patentDescription" name="patentDescription" placeholder="your patent description" onChange={(e) => changePatentDescription(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1690,35 +1691,52 @@ const Resume = () => {
                             </select>
                         </div>
                     </div>
+                    <div className="row">
+                        <div className="col-20" >
+                            <i className="fa fa-plus" aria-hidden="true" style={{fontSize: "2rem", color: 'var(--secondary-color)'}} onClick={(e) => addPatent(e)}></i>
+                        </div>
+                    </div>
 
 
                     {/* Publication */}
                     <h4>Publication</h4>
                     {publications?.map(publication => {
-                        const {name, description} = publication;
+                        const {title, date, descriptions} = publication;
                         return (
                             <>
                             <div className='row'>
                                 <div className='col-20'>
-                                    <span>Publication Name</span>
+                                    <span>Title</span>
                                 </div>
                                 <div className='col-75'>
-                                    <span>{name}</span>
+                                    <span>{title}</span>
                                 </div>
                             </div>
                             <div className='row'>
                                 <div className='col-20'>
-                                    <span>Publication Description</span>
+                                    <span>date</span>
                                 </div>
                                 <div className='col-75'>
-                                    <span>{description}</span>
+                                    <span>{date}</span>
+                                </div>
+                            </div>
+                            <div className='row'>
+                                <div className='col-20'>
+                                    <span>Description</span>
+                                </div>
+                                <div className='col-75'>
+                                    {descriptions.map(des => {
+                                        return (
+                                            <span>{des}</span>
+                                        )
+                                    })}
                                 </div>
                             </div>
                             </>
                     )})}
                     <div className="row">
                         <div className="col-20">
-                            <label for="publicationName">Publication Name</label>
+                            <label for="publicationName">Title</label>
                         </div>
                         <div className="col-75">
                             <input type="text" id="publicationName" name="publicationName" placeholder="publicationName" value={publicationName} onChange={(e) =>setPublicationName(e.target.value)}/>
@@ -1726,10 +1744,10 @@ const Resume = () => {
                     </div>
                     <div className="row">
                         <div className="col-20">
-                            <label for="publicationDescription">Publication Description</label>
+                            <label for="publicationDescription">Description</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="publicationDescription" name="publicationDescription" placeholder="publicationDescription" value={publicationDescription} onChange={(e) =>setPublicationDescription(e.target.value)}/>
+                            <input type="text" id="publicationDescription" name="publicationDescription" placeholder="publicationDescription"  onChange={(e) =>onChangePublicationDescription(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1806,18 +1824,6 @@ const Resume = () => {
                                     })}
                                 </div>
                             </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Achievements</span>
-                                </div>
-                                <div className='col-75'>
-                                    {workshop.achievements.map(achievement => {
-                                        return (
-                                            <span>{achievement}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
                             
                             </>
                         )
@@ -1876,14 +1882,6 @@ const Resume = () => {
                         </div>
                         <div className="col-75">
                             <textarea type="text" id="description" name="description" placeholder="workshop responsibilities" onChange={(e) => changeWorkshopResponsibilities(e.target.value)}/>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-20">
-                            <label for="achievements">Achievements</label>
-                        </div>
-                        <div className="col-75">
-                            <textarea type="text" id="description" name="description" placeholder="workshop achievements" onChange={(e) => changeWorkshopAchievements(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">

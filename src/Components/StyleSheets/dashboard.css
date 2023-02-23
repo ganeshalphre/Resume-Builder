@@ -4,3 +4,105 @@
     width: 100%;
     padding: 2rem 0 0 2rem;
 }
+
+.ResumeComponent {
+    padding: 5rem;
+    font-size: 200%;
+    display: flow-root;
+    max-width: 1200px;
+}
+.ResumeComponent .resume-header{
+    font-size: var(--resume-fontsize);
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-top: 2rem;
+}
+.ResumeComponent .contact-details {
+    display: flex;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+    gap: 2rem;
+}
+.ResumeComponent .contact-details li {
+    font-size: var(--resume-fontsize);
+}
+.resume-name {
+    text-align: center;
+    text-transform: uppercase;
+    color: #000;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+.resume-headline {
+    text-align: center;
+    font-size: var(--resume-fontsize);
+    color: #000;
+    font-weight: 300;
+}
+.ResumeComponent .resume-summary-content{
+    font-size: var(--resume-fontsize);
+}
+.resume-skills, .resume-tech-skills {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+.resume-skills div, .resume-tech-skills div {
+  flex: 0 0 33.333333%;
+  font-size: var(--resume-fontsize);
+}
+.resume-sub-details {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.resume-sub-details ul{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.resume-sub-details ul li{
+    font-size: var(--resume-fontsize);
+}
+
+.resume-sub-details .responsibilities{
+    justify-content: flex-start;
+    flex-direction: column;
+    row-gap: 2px;
+    margin-top: 1rem;
+}
+.resume-sub-details .responsibilities li{
+    margin-left: 2rem;
+    text-align: left;
+    list-style: disc;
+    font-weight: 100;
+}
+
+li:first-child {
+    list-style: none;
+}
+
+.download-pdf {
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-background-color);
+    color: var(--primary-color);
+    padding: 1rem 2rem;
+    width: 10rem;
+}
+
+.pdf-print {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+@media print {
+    @page {
+      margin: 2rem;
+    }
+  }

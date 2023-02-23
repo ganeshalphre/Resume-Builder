@@ -6,6 +6,7 @@ body {
   font-size: 62.5%;
   box-sizing: border-box;
   font-family: 'Roboto';
+  -webkit-print-color-adjust: exact;
 }
 
 #root {
@@ -14,4 +15,9 @@ body {
   --secondary-background-color: grey;
   --primary-color: #d1cbcb;
   --secondary-color: #9b9999;
+  --resume-heading-fontsize: 1.4rem;
+  --resume-fontsize: 1.4rem;
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }

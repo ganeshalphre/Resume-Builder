@@ -9,6 +9,7 @@ import ForgetPassword from './Components/Auth/ForgetPassword';
 import ResetPassword from './Components/Auth/ResetPassword';
 import { Route, Routes } from 'react-router-dom';
 import Resume from './Components/Dashboard/Resume';
+import ResumePDF from './Components/Dashboard/Resume/ResumePDF';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -23,6 +24,7 @@ function App() {
 
         {/* Dashboard */}
         <Route exact path="/dashboard/resume" element={<Resume />} />
+        <Route exact path="/dashboard/resume-pdf" element={<ResumePDF />} />
       </Routes>                                                                                           
     </div>
   );
