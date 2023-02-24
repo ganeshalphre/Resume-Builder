@@ -8,8 +8,9 @@ import Signup from './Components/Auth/Signup';
 import ForgetPassword from './Components/Auth/ForgetPassword';
 import ResetPassword from './Components/Auth/ResetPassword';
 import { Route, Routes } from 'react-router-dom';
-import Resume from './Components/Dashboard/Resume';
 import ResumePDF from './Components/Dashboard/Resume/ResumePDF';
+import ResumeCreate from './Components/Dashboard/Resume/ResumeCreate';
+import ResumeEdit from './Components/Dashboard/Resume/ResumeEdit';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -23,8 +24,9 @@ function App() {
         <Route exact path="/reset-password/:id" element={<ResetPassword />} />
 
         {/* Dashboard */}
-        <Route exact path="/dashboard/resume" element={<Resume />} />
-        <Route exact path="/dashboard/resume-pdf" element={<ResumePDF />} />
+        <Route exact path="/dashboard/create-resume" element={<ResumeCreate />} />
+        <Route exact path="/dashboard/resume-pdf/:id" element={<ResumePDF />} />
+        <Route exact path="/dashboard/edit-resume/:id" element={<ResumeEdit />} />
       </Routes>                                                                                           
     </div>
   );

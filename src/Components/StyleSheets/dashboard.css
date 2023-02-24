@@ -84,7 +84,7 @@ li:first-child {
     list-style: none;
 }
 
-.download-pdf {
+.download-pdf, .edit-pdf {
     text-align: center;
     border: none;
     border-radius: 5px;
@@ -92,6 +92,7 @@ li:first-child {
     color: var(--primary-color);
     padding: 1rem 2rem;
     width: 10rem;
+    margin: 0 1rem 1rem;
 }
 
 .pdf-print {

@@ -14,9 +14,9 @@ const ResumeComponent = forwardRef((props, ref) => {
     }, [])
 
     const getReumeById = async() => {
-        const resumeId = "63f5ef655a407bb61b9af883";
+        console.log(props.id);
         try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${resumeId}`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${props.id}`)
             console.log(data);
             if(data.success) {
                 setResumeData(data.resume);
@@ -33,7 +33,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             <ul className="contact-details">
                 {resumeData?.contact?.email && <li>{resumeData?.contact?.email}</li>}
                 {resumeData?.contact?.phone &&<li>{resumeData?.contact?.phone}</li>}
-                {resumeData?.contact?.linkedin &&<li>{resumeData?.contact?.linkedin}</li>}
+                {resumeData?.contact?.linkedinId &&<li>{resumeData?.contact?.linkedinId}</li>}
             </ul>
             <h3 className="resume-header">Summary</h3>
             <hr />
