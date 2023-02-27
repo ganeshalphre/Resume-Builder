@@ -7,7 +7,7 @@
 
 .ResumeComponent {
     padding: 5rem;
-    font-size: 200%;
+    font-size: 130%;
     display: flow-root;
     max-width: 1200px;
 }
@@ -103,6 +103,9 @@ li:first-child {
 
 
 @media print {
+    .ResumeComponent { 
+        font-size: 10pt;
+    }
     @page {
       margin: 2rem;
     }

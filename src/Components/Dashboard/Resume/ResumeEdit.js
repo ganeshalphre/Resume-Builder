@@ -73,7 +73,7 @@ const ResumeEdit = () => {
     const [projectTitle, setProjectTitle] = useState("");
     const [projectStartDate, setProjectStartDate] = useState("");
     const [projectEndDate, setProjectEndDate] = useState("");
-    const [projectDescription, setProjectDescription] = useState("");
+    const [projectDescription, setProjectDescriptions] = useState([]);
     const [projects, setProjects] = useState([]);
 
     // Volunteers
@@ -198,13 +198,13 @@ const ResumeEdit = () => {
                 // Projects
                 let pros = data.resume.projects;
                 setProjects(pros);
+                // Interest
+                setInterest(data.resume.interest)
                 // Volunteer Experience
                 let volunteerExp = data.resume.volunteerExperiences;
                 setVolunteerExperiences(volunteerExp);
                 // Honors And Awards
-                let honAndAw = data.resume.honorsAndAwards; 
-                console.log("hon", data.resume.honorsAndAwards);
-                console.log('honorArr', honAndAw.toString().replace(/,/g, ' '));
+                let honAndAw = data.resume.honorsAndAwards;
                 setHonorsAndAwards(honAndAw);
                 // Trainings
                 let trains = data.resume.trainings;
@@ -213,27 +213,28 @@ const ResumeEdit = () => {
                 let certs = data.resume.certifications;
                 setCertifications(certs);
                 // License
-                // let licen = data.resume.license;
-                // setLicenseName(licen.name);
-                // setLicenseNumber(licen.number);
-                // setLicenseValidFrom(licen.validFrom);
-                // setLicenseIssuer(licen.issuer);
-                // setLicenseValidTo(licen.validTo);
+                let licen = data.resume.license;
+                console.log(licen);
+                setLicenseName(licen.name);
+                setLicenseNumber(licen.number);
+                setLicenseValidFrom(licen.validFrom);
+                setLicenseIssuer(licen.issuer);
+                setLicenseValidTo(licen.validTill);
                 // Course
                 let cours = data.resume.courses;
                 setCourses(cours);
                 console.log("co log");
                 // Patent
-                // let patens = data.resume.patents;
-                // setPatents(patens);
+                let patens = data.resume.patents;
+                setPatents(patens);
                 // Publicatons
-                // let publicas = data.resume.publications;
-                // setPublications(publicas)
+                let publicas = data.resume.publications;
+                setPublications(publicas)
                 // Workshop
                 let wshops = data.resume.workshops;
                 setWorkshops(wshops);
                 // References
-                let referens = data.resume.reference;
+                let referens = data.resume.references;
                 setReferences(referens);
                 // Personnal Details
                 let perDetails = data.resume.personalDetails;
@@ -300,12 +301,12 @@ const ResumeEdit = () => {
     const addProject = (e) => {
         e.preventDefault();
         if(projectNumber != '' && projectTitle != '' && projectStartDate != "" && projectEndDate != '' && projectDescription != '') {
-            setProjects(prev => [...prev , {number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, description: projectDescription}]);
+            setProjects(prev => [...prev , {number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, descriptions: projectDescription}]);
             setProjectNumber('');
             setProjectTitle('');
             setProjectStartDate('');
             setProjectEndDate('');
-            setProjectDescription('');
+            setProjectDescriptions([]);
             setScore("")
         } else {
             console.log('please fill missing details')
@@ -443,7 +444,7 @@ const ResumeEdit = () => {
             educations.push({degreeName, collegeName, city: collegeCity, country: collegeCountry, startedAt: collegeStartDate, endedAt: collegeEndDate, score: score})
         }
         if(projectNumber != '' && projectTitle != '' && projectStartDate != "" && projectEndDate != '' && projectDescription != '') {
-            projects.push({number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, description: projectDescription});
+            projects.push({number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, descriptionss: projectDescription});
         }
         if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "") {
             volunteerExperiences.push({designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities});
@@ -457,8 +458,11 @@ const ResumeEdit = () => {
         if(courseInstutionName != '' && courseTitle != '' && courseCity != "" && courseCountry != '' && courseStartDate != '' && courseEndDate != '' && courseScore != '') {
             courses.push({institutionName: courseInstutionName, title: courseTitle, startedAt: courseStartDate, endedAt: courseEndDate, city: courseCity, country: courseCountry, score: courseScore});
         }
+        if(patentTitle != '' && patentNumber != "" && patentStatus != '', patentDescription != "") {
+            patents.push({title: patentTitle, number: patentNumber, status: patentStatus, descriptions: patentDescription});
+        }
         if(publicationName != '' && publicationDate != "" && publicationDescription!= '') {
-            publications.push({name: publicationName, date: publicationDate, description: publicationDescription});
+            publications.push({title: publicationName, date: publicationDate, descriptions: publicationDescription});
         }
         if(workshopDesignation != '' && workshopCompanyName != '' && workshopStartDate != "" && workshopEndDate != '' && workshopCompanyCity != '' && workshopCompanyCountry != "" && workshopResponsibilities != "") {
             workshops.push({designation: workshopDesignation, companyName: workshopCompanyName, startedAt: workshopStartDate, endedAt: workshopEndDate, city: workshopCompanyCity, country: workshopCompanyCountry, responsibilities: workshopResponsibilities});
@@ -492,16 +496,11 @@ const ResumeEdit = () => {
                 name: licenseName,
                 number: licenseNumber,
                 validFrom: licenseValidFrom,
-                validTo: licenseValidTo,
+                validTill: licenseValidTo,
                 issuer: licenseIssuer
             },
             courses,
-            patent: {
-                title: patentTitle,
-                number: patentNumber,
-                description: patentDescription,
-                status: patentStatus,
-            },
+            patents,
             publications,
             workshops,
             references,
@@ -549,7 +548,11 @@ const ResumeEdit = () => {
     const changeInternResponsibilities = (val) => {
         let internResponsibilitiesArr = val.split("\n")
         setInternResponsibilities(internResponsibilitiesArr);
-    }                                                                                            
+    }
+    const changeProjectDescriptions = (val) => {
+        let projectDescriptions = val.split("\n")
+        setProjectDescriptions(projectDescriptions);
+    }                                                                                           
     const changeInterest = (val) => {
         let interestArr = val.split("\n")
         setInterest(interestArr);
@@ -615,8 +618,12 @@ const ResumeEdit = () => {
 
     const projectHandleChange = (e, index) => {
         let data = [...projects];
-        data[index][e.target.name] = e.target.value;
-        console.log({data});
+        if(e.target.name == "descriptions") {
+            let arr = e.target.value.split("\n");
+            data[index][e.target.name] = arr; 
+        } else {
+            data[index][e.target.name] = e.target.value;
+        }
         setProjects(data)
     }
 
@@ -643,6 +650,52 @@ const ResumeEdit = () => {
         data[index][e.target.name] = e.target.value;
         console.log({data});
         setCertifications(data)
+    }
+    const courseChangeHandler = (e, index) => {
+        let data = [...courses];
+        data[index][e.target.name] = e.target.value;
+        console.log({data});
+        setCourses(data);
+    }
+    const patentHandleChange = (e, index) => {
+        let data = [...patents];
+        console.log({data});
+        console.log(e.target.value);
+        if(e.target.name == "descriptions") {
+            let arr = e.target.value.split("\n");
+            data[index][e.target.name] = arr; 
+        } else {
+            data[index][e.target.name] = e.target.value;
+        }
+        setPatents(data)    
+    }
+    const publicationHandleChange = (e, index) => {
+        let data = [...publications];
+        console.log({data});
+        if(e.target.name == "descriptions") {
+            let arr = e.target.value.split("\n");
+            data[index][e.target.name] = arr; 
+        } else {
+            data[index][e.target.name] = e.target.value;
+        }
+        setPublications(data)    
+    }
+    const workshopHandleChange = (e, index) => {
+        let data = [...workshops];
+        console.log({data});
+        if(e.target.name == "responsibilities") {
+            let arr = e.target.value.split("\n");
+            data[index][e.target.name] = arr; 
+        } else {
+            data[index][e.target.name] = e.target.value;
+        }
+        setWorkshops(data)    
+    }
+    const referenceHandleChange = (e, index) => {
+        let data = [...references];
+        data[index][e.target.name] = e.target.value;
+        console.log({data});
+        setReferences(data);   
     }
 
 
@@ -1114,7 +1167,7 @@ const ResumeEdit = () => {
                             <label for="score">Interest</label>
                         </div>
                         <div className="col-75">
-                            <textarea type="text" id="score" name="score" placeholder="Your interest" onChange={(e) => changeInterest(e.target.value)}/>
+                            <textarea type="text" id="score" name="score" placeholder="Your interest" value={interest.join('\n')} onChange={(e) => changeInterest(e.target.value)}/>
                         </div>
                     </div>
 
@@ -1162,7 +1215,7 @@ const ResumeEdit = () => {
                                         <label for="description">Description</label>
                                     </div>
                                     <div className="col-75">
-                                        <input type="text" id="description" name="description" placeholder="Your project description" value={project.description} onChange={(e) => projectHandleChange(e, index)}/>
+                                        <textarea type="text" id="description" name="descriptions" placeholder="Your project description" value={project.descriptions.join('\n')} onChange={(e) => projectHandleChange(e, index)}/>
                                     </div>
                                 </div>
                             </span>
@@ -1205,7 +1258,7 @@ const ResumeEdit = () => {
                             <label for="description">Description</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="description" name="description" placeholder="Your project description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}/>
+                            <input type="text" id="description" name="description" placeholder="Your project description" onChange={(e) => changeProjectDescriptions(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1498,10 +1551,10 @@ const ResumeEdit = () => {
                                 </div>
                                 <div className="row">
                                     <div className="col-20">
-                                        <label for="certificationName">Insttitution Name</label>
+                                        <label for="certificationName">Institution Name</label>
                                     </div>
                                     <div className="col-75">
-                                        <input type="text" id="certificationName" name="institutionName" placeholder="Your certification name" value={institutionName} onChange={(e) => certificationChangeHandler(e, index)}/>
+                                        <input type="text" id="certificationName" name="institutionName" placeholder="Institution Name" value={institutionName} onChange={(e) => certificationChangeHandler(e, index)}/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -1509,7 +1562,7 @@ const ResumeEdit = () => {
                                         <label for="city">City</label>
                                     </div>
                                     <div className="col-75">
-                                        <input type="text" id="city" name="city" placeholder="Training city" value={city} onChange={(e) => certificationChangeHandler(e, index)}/>
+                                        <input type="text" id="city" name="city" placeholder="Institution city" value={city} onChange={(e) => certificationChangeHandler(e, index)}/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -1517,7 +1570,7 @@ const ResumeEdit = () => {
                                         <label for="country">Country</label>
                                     </div>
                                     <div className="col-75">
-                                        <input type="text" id="country" name="country" placeholder="Training country" value={country} onChange={(e) => certificationChangeHandler(e, index)}/>
+                                        <input type="text" id="country" name="country" placeholder="Institution country" value={country} onChange={(e) => certificationChangeHandler(e, index)}/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -1640,7 +1693,7 @@ const ResumeEdit = () => {
                             <label for="licenseValidity">Valid From</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="licenseValidity" name="licenseValidity" placeholder="License Valid From" value={licenseValidFrom} onChange={(e) =>setLicenseValidFrom(e.target.value)}/>
+                            <input type="date" id="licenseValidity" name="licenseValidity" placeholder="License Valid From" defaultValue={licenseValidFrom} onChange={(e) =>setLicenseValidFrom(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1648,7 +1701,7 @@ const ResumeEdit = () => {
                             <label for="licenseValidity">Valid To</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="licenseValidity" name="licenseValidity" placeholder="License Valid To" value={licenseValidTo} onChange={(e) =>setLicenseValidTo(e.target.value)}/>
+                            <input type="date" id="licenseValidity" name="licenseValidity" placeholder="License Valid To" defaultValue={licenseValidTo} onChange={(e) =>setLicenseValidTo(e.target.value)}/>
                         </div>
                     </div>
 
@@ -1657,67 +1710,67 @@ const ResumeEdit = () => {
 
                     {/* Course */}
                     <h4>Course</h4>
-                    {courses?.map(course => {
+                    {courses?.map((course, index) => {
                         const {title, institutionName, city, country, startedAt, endedAt, score} = course;
                         return (
-                            <>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Title</span>
+                            <span key={index}>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationTitle">Title</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationTitle" name="title" placeholder="Your Title" value={title} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{title}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationName">Institution Name</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationName" name="institutionName" placeholder="Institution Name" value={institutionName} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Institution Name</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="city" name="city" placeholder="Institution city" value={city} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{institutionName}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="country">Country</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="country" name="country" placeholder="Institution country" value={country} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>City</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="startDate">Start Date</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="date" id="startDate" name="startedAt" placeholder="Your start date" value={startedAt} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{city}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="endDate">End Date</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="date" id="endDate" name="endedAt" placeholder="Your end date" value={endedAt} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Country</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="score">Score</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="score" name="score" placeholder="score" value={score} onChange={(e) => courseChangeHandler(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{country}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Start Date</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{startedAt}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>End Date</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{endedAt}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Score</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{score}</span>
-                                </div>
-                            </div>
-                            </>
+                            </span>
                         )
                     })}
                     <div className="row">
@@ -1730,10 +1783,10 @@ const ResumeEdit = () => {
                     </div>
                     <div className="row">
                         <div className="col-20">
-                            <label for="courseName">course Name</label>
+                            <label for="institutionName">course Name</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="courseName" name="courseName" placeholder="Your course name" value={courseInstutionName} onChange={(e) => setCourseInstutionName(e.target.value)}/>
+                            <input type="text" id="institutionName" name="institutionName" placeholder="Your Institution Name" value={courseInstutionName} onChange={(e) => setCourseInstutionName(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1741,7 +1794,7 @@ const ResumeEdit = () => {
                             <label for="city">City</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="city" name="city" placeholder="Training city" value={courseCity} onChange={(e) => setCourseCity(e.target.value)}/>
+                            <input type="text" id="city" name="city" placeholder="Course City" value={courseCity} onChange={(e) => setCourseCity(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1749,7 +1802,7 @@ const ResumeEdit = () => {
                             <label for="country">Country</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="country" name="country" placeholder="Training country" value={courseCountry} onChange={(e) => setCourseCountry(e.target.value)}/>
+                            <input type="text" id="country" name="country" placeholder="Course Country  " value={courseCountry} onChange={(e) => setCourseCountry(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1784,47 +1837,47 @@ const ResumeEdit = () => {
 
                     {/* Patent */}
                     <h4>Patent</h4>
-                    {patents?.map(patent => {
+                    {patents?.map((patent, index) => {
                         const {title, number, status, descriptions} = patent;
                         return (
-                            <>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Title</span>
+                            <span key={index}>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationTitle">Title</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationTitle" name="title" placeholder="Patent Title" value={title} onChange={(e) => patentHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{title}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="number">Institution Name</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationName" name="number" placeholder="Patent Number" value={number} onChange={(e) => patentHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Number</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="decription">Description</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <textarea type="text" id="description" name="descriptions" placeholder="Patent Descriptions" value={descriptions.join('\n')} onChange={(e) => patentHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{number}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Validity</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{status}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Description</span>
-                                </div>
-                                <div className='col-75'>
-                                    {descriptions.map(des => {
-                                        return (
-                                            <span>{des}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                            </>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="patentStatus">Patent Status</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <select id="patentStatus" name="status" onChange={e => patentHandleChange(e, index)}>
+                                            <option value={status} placeholder='please select the option'>{status}</option>
+                                            {status != "Applied" && <option value="Apllied">Applied</option>}
+                                            {status != "Approved" && <option value="Approved">Approved</option>}
+                                        </select>
+                                    </div>
+                                    </div>
+                            </span>
                         )
                     })}
                     <div className="row">
@@ -1872,40 +1925,37 @@ const ResumeEdit = () => {
 
                     {/* Publication */}
                     <h4>Publication</h4>
-                    {publications?.map(publication => {
+                    {publications?.map((publication, index) => {
                         const {title, date, descriptions} = publication;
                         return (
-                            <>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Title</span>
+                            <span key={index}>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationTitle">Title</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationTitle" name="title" placeholder="Publication Title" value={title} onChange={(e) => publicationHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{title}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="number">Institution Name</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="date" id="certificationName" name="date" placeholder="publication Date" value={date} onChange={(e) => publicationHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>date</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="decription">Description</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <textarea type="text" id="description" name="descriptions" placeholder="Descriptions" value={descriptions.join('\n')} onChange={(e) => publicationHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{date}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Description</span>
-                                </div>
-                                <div className='col-75'>
-                                    {descriptions.map(des => {
-                                        return (
-                                            <span>{des}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                            </>
-                    )})}
+                            </span>
+                        )
+                    })}
                     <div className="row">
                         <div className="col-20">
                             <label for="publicationName">Title</label>
@@ -1941,71 +1991,66 @@ const ResumeEdit = () => {
 
                     {/* Workshop */}
                     <h4>Workshop</h4>
-                    {workshops?.map(workshop => {
+                    {workshops?.map((workshop, index) => {
                         return (
-                            <>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Designation</span>
+                            <span key={index}>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="projectNumber">Designation</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="projectNumber" name="designation" placeholder="Your designation" value={workshop.designation} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{workshop.designation}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="projectTitle">Company Name</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="projectTitle" name="companyName" placeholder="Your company name" value={workshop.companyName} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Company Name</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="startDate">Start Date</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="date" id="startDate" name="startedAt" placeholder="Your start date" value={workshop.startedAt} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{workshop.companyName}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="endDate">End Date</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="date" id="endDate" name="endedAt" placeholder="Your end date" value={workshop.endedAt} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Start Date</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="description" name="city" placeholder="Workshop City" value={workshop.city} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{workshop.startedAt}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="country">Country</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="description" name="country" placeholder="Workshop Country" value={workshop.country} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>End Date</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="responsibilities">Responsibilities</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <textarea type="text" id="description" name="responsibilities" placeholder="Workshop Responsibilities" value={workshop.responsibilities.join('\n')} onChange={(e) => workshopHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{workshop.endedAt}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Company City</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{workshop.city}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Company Country</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{workshop.country}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Responsibilities</span>
-                                </div>
-                                <div className='col-75'>
-                                    {workshop.responsibilities.map(responsibility => {
-                                        return (
-                                            <span>{responsibility}</span>
-                                        )
-                                    })}
-                                </div>
-                            </div>
-                            
-                            </>
+                            </span>
                         )
                     })}
                     <div className="row">
@@ -2074,43 +2119,43 @@ const ResumeEdit = () => {
 
                     {/* Reference */}
                     <h4>Reference</h4>
-                    {references?.map(reference => {
+                    {references?.map((reference, index) => {
                         const {name, designation, company, email} = reference;
                         return (
-                            <>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Name</span>
+                            <span key={index}>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationTitle">Name</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationTitle" name="name" placeholder="Reference Name" value={name} onChange={(e) => referenceHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{name}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="certificationName">Designation</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="certificationName" name="designations" placeholder="Designation Name" value={designation} onChange={(e) => referenceHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Designation</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="city" name="company" placeholder="Company Name" value={company} onChange={(e) => referenceHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                                <div className='col-75'>
-                                    <span>{designation}</span>
+                                <div className="row">
+                                    <div className="col-20">
+                                        <label for="country">Country</label>
+                                    </div>
+                                    <div className="col-75">
+                                        <input type="text" id="country" name="email" placeholder="Email" value={email} onChange={(e) => referenceHandleChange(e, index)}/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Company</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{company}</span>
-                                </div>
-                            </div>
-                            <div className='row'>
-                                <div className='col-20'>
-                                    <span>Email</span>
-                                </div>
-                                <div className='col-75'>
-                                    <span>{email}</span>
-                                </div>
-                            </div>
-                            </>
+                            </span>
                         )
                     })}
                     <div className="row">
@@ -2158,7 +2203,7 @@ const ResumeEdit = () => {
                             <label for="languageKnown">Languages Known</label>
                         </div>
                         <div className="col-75">
-                            <textarea type="text" id="languageKnown" name="languageKnown" placeholder="known languages" onChange={(e) => changeknownLanguages(e.target.value)}/>
+                            <textarea type="text" id="languageKnown" name="languageKnown" placeholder="known languages" value={languageKnown.join('\n')} onChange={(e) => changeknownLanguages(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -2166,7 +2211,7 @@ const ResumeEdit = () => {
                             <label for="dateOfBirth">Date Of Birth</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="Date Of Birth" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)}/>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" placeholder="Date Of Birth" value={dateOfBirth} onChange={e => setDateOfBirth(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">

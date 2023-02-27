@@ -64,7 +64,7 @@ const ResumeCreate = () => {
     const [projectTitle, setProjectTitle] = useState("");
     const [projectStartDate, setProjectStartDate] = useState("");
     const [projectEndDate, setProjectEndDate] = useState("");
-    const [projectDescription, setProjectDescription] = useState("");
+    const [projectDescription, setProjectDescriptions] = useState("");
     const [projects, setProjects] = useState([]);
 
     // Volunteers
@@ -178,7 +178,7 @@ const ResumeCreate = () => {
             setInternCompanyName('');
             setInternCompanyCity('');
             setInternCompanyCountry('');
-            setInternResponsibilities('');
+            setInternResponsibilities([]);
             setInternStartDate('');
             setInternEndDate('');
         } else {
@@ -206,12 +206,12 @@ const ResumeCreate = () => {
     const addProject = (e) => {
         e.preventDefault();
         if(projectNumber != '' && projectTitle != '' && projectStartDate != "" && projectEndDate != '' && projectDescription != '') {
-            setProjects(prev => [...prev , {number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, description: projectDescription}]);
+            setProjects(prev => [...prev , {number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, descriptions: projectDescription}]);
             setProjectNumber('');
             setProjectTitle('');
             setProjectStartDate('');
             setProjectEndDate('');
-            setProjectDescription('');
+            setProjectDescriptions([]);
             setScore("")
         } else {
             console.log('please fill missing details')
@@ -348,7 +348,7 @@ const ResumeCreate = () => {
             educations.push({degreeName, collegeName, city: collegeCity, country: collegeCountry, startedAt: collegeStartDate, endedAt: collegeEndDate, score: score})
         }
         if(projectNumber != '' && projectTitle != '' && projectStartDate != "" && projectEndDate != '' && projectDescription != '') {
-            projects.push({number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, description: projectDescription});
+            projects.push({number: projectNumber, title: projectTitle, startedAt: projectStartDate, endedAt: projectEndDate, descriptions: projectDescription});
         }
         if(volunteerDesignation != '' && volunteerCompanyName != '' && volunteerStartDate != "" && volunteerEndDate != '' && volunteerCompanyCity != '' && volunteerCompanyCountry != "" && volunteerResponsibilities != "") {
             volunteerExperiences.push({designation: volunteerDesignation, companyName: volunteerCompanyName, startedAt: volunteerStartDate, endedAt: volunteerEndDate, city: volunteerCompanyCity, country: volunteerCompanyCountry, responsibilities: volunteerResponsibilities});
@@ -454,6 +454,10 @@ const ResumeCreate = () => {
     const changeInternResponsibilities = (val) => {
         let internResponsibilitiesArr = val.split("\n")
         setInternResponsibilities(internResponsibilitiesArr);
+    }                                                                                            
+    const changeProjectDescriptions = (val) => {
+        let projectDescriptions = val.split("\n")
+        setProjectDescriptions(projectDescriptions);
     }                                                                                            
     const changeInterest = (val) => {
         let interestArr = val.split("\n")
@@ -690,7 +694,7 @@ const ResumeCreate = () => {
                             <label for="responsibilities">Responsibilities</label>
                         </div>
                         <div className="col-75">
-                            <textarea type="text" id="responsibilities" name="responsibilities" placeholder="Your" onChange={(e) => changeResposibilities(e.target.value)}/>
+                            <textarea type="text" id="responsibilities" name="responsibilities" placeholder="Your Responsibilities" onChange={(e) => changeResposibilities(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -963,7 +967,7 @@ const ResumeCreate = () => {
                             <label for="score">Interest</label>
                         </div>
                         <div className="col-75">
-                            <textarea type="text" id="score" name="score" placeholder="Your interest" onChange={(e) => changeInterest(e.target.value)}/>
+                            <textarea type="text" id="score" name="score" placeholder="Your Interest" onChange={(e) => changeInterest(e.target.value)}/>
                         </div>
                     </div>
 
@@ -1011,7 +1015,11 @@ const ResumeCreate = () => {
                                     <span>Description</span>
                                 </div>
                                 <div className='col-75'>
-                                    <span>{project.description}</span>
+                                {project.descriptions.map(description => {
+                                        return (
+                                            <span>{description}</span>
+                                        )
+                                    })}
                                 </div>
                             </div>
                             
@@ -1055,7 +1063,7 @@ const ResumeCreate = () => {
                             <label for="description">Description</label>
                         </div>
                         <div className="col-75">
-                            <input type="text" id="description" name="description" placeholder="Your project description" value={projectDescription} onChange={(e) => setProjectDescription(e.target.value)}/>
+                            <textarea type="text" id="description" name="description" placeholder="Your project description" onChange={(e) => changeProjectDescriptions(e.target.value)}/>
                         </div>
                     </div>
                     <div className="row">
@@ -1713,8 +1721,8 @@ const ResumeCreate = () => {
                         <div className="col-75">
                             <select id="patentStatus" name="patentStatus" onChange={e => setPatentStatus(e.target.value)}>
                                 <option value="" placeholder='please select the option'></option>
-                                <option value="apllied">Applied</option>
-                                <option value="approved">Approved</option>
+                                <option value="Apllied">Applied</option>
+                                <option value="Approved">Approved</option>
                             </select>
                         </div>
                     </div>

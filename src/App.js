@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import ResumePDF from './Components/Dashboard/Resume/ResumePDF';
 import ResumeCreate from './Components/Dashboard/Resume/ResumeCreate';
 import ResumeEdit from './Components/Dashboard/Resume/ResumeEdit';
+import WebResume from './Components/Dashboard/WebResume';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -27,6 +28,9 @@ function App() {
         <Route exact path="/dashboard/create-resume" element={<ResumeCreate />} />
         <Route exact path="/dashboard/resume-pdf/:id" element={<ResumePDF />} />
         <Route exact path="/dashboard/edit-resume/:id" element={<ResumeEdit />} />
+
+        {/* Web Resume */}
+        <Route exact path='/dashboard/web-resume' element={<WebResume />} />
       </Routes>                                                                                           
     </div>
   );

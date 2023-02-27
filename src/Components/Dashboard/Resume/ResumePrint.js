@@ -210,7 +210,13 @@ const ResumeComponent = forwardRef((props, ref) => {
                             {project.title && <li>{project.title}</li>}
                                 {project.startedAt && <li>{monthNames[Number(startedDateArr[1]) - 1]} {" "}{startedDateArr[0]} to {monthNames[Number(endedDateArr[1]) - 1]} {" "}{endedDateArr[0]}</li>}
                             </ul>
-                            {project.description && <p>{project.description}</p>}
+                            <ul className="responsibilities">
+                                {project?.descriptions?.map(description => {
+                                    return (
+                                        <li className="responsibilty">{description}</li>
+                                    )
+                                })}
+                            </ul>
                         </div>
                     )
                 })}
