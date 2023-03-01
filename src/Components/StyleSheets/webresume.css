@@ -25,11 +25,18 @@
     font-stretch: ultra-condensed;
 }
 
+.section-one .contact-details .name {
+    margin-top: 3rem;
+}
+.section-one .contact-details .details {
+    margin-top: 1rem;
+}
+
 .WebResume .contact-details img {
-    width: 150px;
-    height: 150px;
+    width: 35rem;
+    height: 35rem;
     border-radius: 50%;
-    margin: 20px;
+    margin: 2rem;
     object-fit: cover;
     object-position: center right;
     justify-self: center;
@@ -39,18 +46,18 @@
     font-weight: 700;
     line-height: 4.6rem;
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(90deg,#4ca5ff 2.34%,#b673f8 100.78%);
+    background: linear-gradient(90deg,#a6a7a9 2.34%,#575658 100.78%);
     -webkit-background-clip: text;
     
 }
 .WebResume .contact-details .details a i{
-    font-size: 4rem;
+    font-size: 2rem;
     text-transform: none;
-    gap: 1rem;
-    padding: 4rem;
+    padding: 1rem;
+    color: #54595c;
 }
 
-.WebResume .contact-details .details .email i {
+/* .WebResume .contact-details .details .email i {
     color: rgb(243, 34, 34);
 }
 .WebResume .contact-details .details .phone i {
@@ -58,18 +65,12 @@
 }
 .WebResume .contact-details .details .linkedin i {
     color: #0A66C2;
-}
+} */
 
-.section-two .summary h4 {
+.section div h4 {
     font-size: 4.8rem;
     -webkit-text-fill-color: transparent;
-    background: linear-gradient(90deg,#4ca5ff 2.34%,#b673f8 100.78%);
-    -webkit-background-clip: text;
-}
-.section-three .experience h4 {
-    font-size: 4.8rem;
-    -webkit-text-fill-color: transparent;
-    background: linear-gradient(90deg,#4ca5ff 2.34%,#b673f8 100.78%);
+    background: linear-gradient(90deg,#a6a7a9 2.34%,#575658 100.78%);
     -webkit-background-clip: text;
 }
 .section-two .summary div {
@@ -77,26 +78,238 @@
     font-size: 1.6rem;
     padding: 0 10rem;
 }
-.section-three .experience .exp {
+.section .common .common-details {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    padding: 2rem 0;
+    gap: 6rem;
+}
+.section .common .common-details .common-details-circle {
+    flex: 25%;
+    justify-content: end;
+    display: flex;
+    position: relative;
+}
+.section .common .common-details .common-details-circle::after {
+    content: '';
+    position: absolute;
+    /* height: 5rem; */
+    z-index: 10;
+    width: 0.3rem;
+    background: #54595c;
+    top: 1.5rem;
+    right: 0.6rem;
+    /* border-right: 1px dashed #54595c; */
+}
+.section .workshop div div::after , .section .experience div div::after, .section .volunteer-experience div div::after,
+.section .internship div div::after, .section .trainings div div::after, .section .courses div div::after, 
+.section .certifications div div::after , .section .education div div::after, .section .patents div div::after{
+    height: 7.5rem;
+}
+.section .project div div::after, .section .publications div div::after, .section .patents div div::after,  
+.section .license div div::after{
+    height: 5rem;
+}
+/* .section .common .common-details div:last-child { */
+    /* background: yellow; */
+    /* content: '';
+    position: absolute;
+    height: 4rem;
+    z-index: 10;
+    width: 0.5rem;
+    background: yellow !important;
+    top: 11rem;
+    right: 5rem; */
+/* } */
+.section .common .common-details .common-details-circle div{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem 0;
-    gap: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #54595c;
+    /* background: linear-gradient(90deg,#4ca5ff 2.34%,#b673f8 100.78%); */
+    border-radius: 50%;
+    /* padding: 100px; */
 }
-.section-three .experience .exp .exp-circle {
-    flex: 50%;
-    flex-direction: flex-end;
-}
-.section-three .experience .exp .exp-circle div{
-    width: 100px;
-  height: 100px;
-  background: linear-gradient(90deg,#4ca5ff 2.34%,#b673f8 100.78%);
-  border: 1px solid #000;
+.section .common .common-details .common-details-circle div div{
+  background: #0d1117;
+  width: 1rem;
+  height: 1rem;
   border-radius: 50%;
 }
-.section-three .experience .exp .exp-data {
+.section .common .common-data{ 
     font-size: 1.6rem;
     color: #A3B3BC;
-    flex: 50%
+    flex: 50%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.WebResume .section-seven {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.WebResume .section-seven h4{
+    text-align: center   
+}
+.WebResume .section-seven .hon{
+    font-size: 2rem;
+    color: #A3B3BC;
+    width: 50rem;
+    align-self: center;
+    justify-self: center;
+    padding: 2rem;
+}
+.WebResume .section-seven .hon:hover {
+    background: #161b22;
+}
+.WebResume .section-seven .hon .badge {
+    display: flex;
+    justify-content: center;
+}
+.WebResume .section-seven .hon .badge div{
+    background: #54595c;
+    width: 8.5rem;
+    height: 8.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.patent-designation-period, .patent-designation-period span {
+    text-transform: capitalize;
+}
+
+.section-sixteen .reference .ref {
+    display: flex;
+    background: #161b22;
+    flex-direction: column;
+    margin: 1rem auto;
+    padding: 2rem;
+    width: 40rem;
+}
+
+.section-sixteen .reference .ref .ref-name-designation {
+    display: flex;
+    gap: 1rem
+}
+.section-sixteen .reference .ref .ref-name {
+    color: #fff;
+    font-size: 2rem;
+}
+.section-sixteen .reference .ref .ref-designation {
+    color: #6b707b;
+    font-size: 1.4rem;
+    align-self: center;
+}
+.section-sixteen .reference .ref .ref-email-company {
+    display: flex;
+    font-size: 1.4rem;
+    color: #6b707b;
+    gap: 1rem
+}
+.skill-range {
+        border: solid 2px #54595c;
+        border-radius: 8px;
+        height: 1.2rem;
+        width: 40rem;
+        outline: none;
+        /* transition: background 450ms ease-in; */
+        -webkit-appearance: none;
+}
+      
+.skill-range::-webkit-slider-thumb {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    -webkit-appearance: none;
+    cursor: ew-resize;
+    background: #434343;
+}
+
+.skills-heading {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 4.6rem;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg,#a6a7a9 2.34%,#575658 100.78%);
+    -webkit-background-clip: text;
+}
+
+.skills div h3 {
+    text-transform: capitalize;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+}
+
+.personnal-details .properties {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem
+}
+.properties .property-one, .property-value {
+    flex: 30%;
+}
+.properties .property-four, .property-name {
+    flex: 20%;
+}
+.properties .property-name, .properties .property-value {
+    display: flex;
+    flex-direction: column;
+}
+.properties .property-value, .properties .property-name{
+    align-items: flex-start;
+}
+.properties .property-name div, .properties .property-value div{
+    font-size: 1.6rem;
+    color: #6b707b;
+}
+
+.section .interest {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+}
+
+.section .interest .inte .inte-name {
+    display: flex;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    width: 10rem;
+    height: 5rem;
+    background: #161b22;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-seventeen h4 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 4.6rem;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(90deg,#a6a7a9 2.34%,#575658 100.78%);
+    -webkit-background-clip: text;
+    margin-bottom: 2rem;
+}
+
+.common-details:hover .common-data {
+    color: #54595c;
+}
+.common-details:hover .common-details .common-details-circle div div{
+    background: #be9393;
+}
+
+@media only screen and (max-width: 600px) {
+    .skill-range {
+        width: 90%;
+    }
 }

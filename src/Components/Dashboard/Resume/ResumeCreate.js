@@ -18,6 +18,9 @@ const ResumeCreate = () => {
     const [linkedinId, setLinkedinId] = useState("");
 
     // Summary
+    const [headline, setHeadline] = useState("");
+
+    // Summary
     const [summary, setSummary] = useState([]);
 
     // Skills
@@ -381,6 +384,7 @@ const ResumeCreate = () => {
                 address,
                 linkedinId
             },
+            headline,
             summary,
             skills,
             techSkills,
@@ -543,6 +547,16 @@ const ResumeCreate = () => {
                         </div>
                     </div>
                     
+                    {/* Headline */}
+                    <div className="row">
+                        <div className="col-20">
+                            <label for="summary">Headline</label>
+                        </div>
+                        <div className="col-75">
+                            <textarea type="text" id="headline" name="headline" placeholder="Your headline" onChange={(e) => setHeadline(e.target.value)}/>
+                        </div>
+                    </div>
+
                     {/* Summary */}
                     <div className="row">
                         <div className="col-20">

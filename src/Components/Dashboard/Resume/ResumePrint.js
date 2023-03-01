@@ -29,7 +29,7 @@ const ResumeComponent = forwardRef((props, ref) => {
     return ( 
         <div className="ResumeComponent" ref={ref}>
             <h1 className="resume-name">{resumeData?.contact?.firstName} {" "} {resumeData?.contact?.lastName}</h1>
-            <h3 className="resume-headline">MERN Stack Developer</h3>
+            <h3 className="resume-headline">{resumeData.headline}</h3>
             <ul className="contact-details">
                 {resumeData?.contact?.email && <li>{resumeData?.contact?.email}</li>}
                 {resumeData?.contact?.phone &&<li>{resumeData?.contact?.phone}</li>}

@@ -1,0 +1,70 @@
+.SmartCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-direction: column;
+}
+.SmartCard .card {
+    text-align: center;
+    background-color: var(--primary-background-color);
+    width: 134.4rem;
+    height: 768px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+.SmartCard .card div{
+    flex: 40%;
+}
+.SmartCard .card .card-name {
+    font-size: 6rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #a6a7a9;
+    margin: 2rem 0;
+}
+.SmartCard .card .card-headline {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #a6a7a9;
+}
+.SmartCard .card .card-mobile-email {
+    font-size: 2rem;
+    font-weight: 400;
+    margin: 2rem 0;
+    text-align: left;
+    padding-left: 3rem;
+}
+.SmartCard .card .card-mobile-email span {
+    padding: 0 0.5rem;
+    color: #a6a7a9;
+}
+.SmartCard .card .card-mobile-email span i {
+    padding: 0 0.2rem;
+}
+.SmartCard .card .web-resume-qr-code {
+    /* margin-top: 1rem; */
+    flex: 60%;
+}
+.SmartCard .card .web-resume-qr-code svg{
+    /* min-height: 400px; */
+    /* width: 700px; */
+}
+.SmartCard .card-download {
+    padding: 1rem;
+    border: none;
+    background: var(--primary-background-color);
+    color: var(--primary-color);
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+@media only screen and (max-width: 600px) {
+.SmartCard .card {
+    flex-direction: column;
+}
+}

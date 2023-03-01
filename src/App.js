@@ -12,6 +12,8 @@ import ResumePDF from './Components/Dashboard/Resume/ResumePDF';
 import ResumeCreate from './Components/Dashboard/Resume/ResumeCreate';
 import ResumeEdit from './Components/Dashboard/Resume/ResumeEdit';
 import WebResume from './Components/Dashboard/WebResume';
+import SmartCard from './Components/Dashboard/SmartCard/card';
+import Dashboard from './Components/Dashboard';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -25,12 +27,16 @@ function App() {
         <Route exact path="/reset-password/:id" element={<ResetPassword />} />
 
         {/* Dashboard */}
+        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route exact path="/dashboard/create-resume" element={<ResumeCreate />} />
         <Route exact path="/dashboard/resume-pdf/:id" element={<ResumePDF />} />
         <Route exact path="/dashboard/edit-resume/:id" element={<ResumeEdit />} />
 
         {/* Web Resume */}
-        <Route exact path='/dashboard/web-resume' element={<WebResume />} />
+        <Route exact path='/dashboard/web-resume/:id' element={<WebResume />} />
+
+        {/* Smart Card */}
+        <Route exact path='/dashboard/smart-card/:id' element={<SmartCard />} />
       </Routes>                                                                                           
     </div>
   );

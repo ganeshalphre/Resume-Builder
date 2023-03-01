@@ -11,7 +11,7 @@ body {
 
 #root {
   width: 100%;
-  --primary-background-color: black;
+  --primary-background-color: #000;
   --secondary-background-color: grey;
   --primary-color: #d1cbcb;
   --secondary-color: #9b9999;
@@ -20,4 +20,10 @@ body {
 }
 ::-webkit-calendar-picker-indicator {
   filter: invert(1);
+}
+
+@media only screen and (max-width: 600px) {
+  html, body {
+    font-size: 45%;
+  }
 }

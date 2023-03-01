@@ -26,6 +26,9 @@ const ResumeEdit = () => {
     const [address, setAddress] = useState("");
     const [linkedInId, setLinkedInId] = useState("");
 
+    // Headline
+    const [headline, setHeadline] = useState("");
+
     // Summary
     const [summary, setSummary] = useState([]);
 
@@ -176,6 +179,8 @@ const ResumeEdit = () => {
                 setPhone(cont.phone);
                 setAddress(cont.address);
                 setLinkedInId(cont.linkedinId)
+                // Headline
+                setHeadline(data.resume.headline)
                 // Summary
                 let summ = data.resume.summary;
                 setSummary(summ)
@@ -480,6 +485,7 @@ const ResumeEdit = () => {
                 address,
                 linkedinId: linkedInId
             },
+            headline,
             summary,
             skills,
             techSkills,
@@ -752,6 +758,16 @@ const ResumeEdit = () => {
                         </div>
                     </div>
                     
+                    {/* Headline */}
+                    <div className="row">
+                        <div className="col-20">
+                            <label for="summary">Headline</label>
+                        </div>
+                        <div className="col-75">
+                            <textarea type="text" id="summary" name="headline" placeholder="Your headline" value={headline} onChange={(e) => setHeadline(e.target.value)}/>
+                        </div>
+                    </div>
+
                     {/* Summary */}
                     <div className="row">
                         <div className="col-20">
