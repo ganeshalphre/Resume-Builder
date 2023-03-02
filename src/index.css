@@ -27,3 +27,8 @@ body {
     font-size: 45%;
   }
 }
+
+.file-pdf {
+  display: none;
+}
+

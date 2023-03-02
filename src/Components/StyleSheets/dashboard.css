@@ -121,6 +121,18 @@ li:first-child {
     align-items: center;
 }
 
+.Files {
+    background: var(--primary-background-color);
+    height: 100vh;
+    padding: 2rem;
+}
+
+.Files table {
+    width: 60%;
+    margin: 0rem auto;
+    font-size: 1.6rem;
+}
+
 
 @media print {
     .ResumeComponent { 

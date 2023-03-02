@@ -26,7 +26,7 @@
   }
 
   form button{
-    background-color: #004f43;
+    background-color: var(--secondary-background-color);
     color: white;
     padding: 12px 30px;
     border: none;
@@ -36,8 +36,8 @@
     /* float: right; */
   }
   
-  button:hover {
-    background-color: #018a75;
+  form button:hover {
+    background-color: var(--secondary-color);
   }
   
   .container {

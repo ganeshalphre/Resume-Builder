@@ -9,15 +9,14 @@ import Carousel from '../../Layouts/carousel';
 const WebResume = () => {
 
     const {id} = useParams();
-    const resumeId = id;
+    const smartCardId = id;
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                        ]
 
-    const headline = "MERN Stack Developer"
-
     const [contact, setContact] = useState({});
+    const [headline, setHeadline] = useState("");
     const [summary, setSummary] = useState('');
     const [skills, setSkills] = useState([]);
     const [techSkills, setTechSkills] = useState([]);
@@ -39,55 +38,57 @@ const WebResume = () => {
     const [interest, setInterest] = useState([]);
 
     useEffect(() => {
-        getResume();
+        getSmartCard();
     }, [])
 
-    const getResume = async() => {
+    const getSmartCard = async() => {
         try {
-           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${resumeId}`)
+           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`)
            console.log({data});
            if(data.success) {
-               console.log({resume: data.resume})
+               console.log({smartCard: data.smartCard})
                // Contact
-               setContact(data.resume.contact);
+               setContact(data.smartCard.contact);
+               // Headline
+               setHeadline(data.smartCard.headline)
                // Summary
-               setSummary(data.resume.summary)
+               setSummary(data.smartCard.summary)
                // Skills
-               setSkills(data.resume.skills)
+               setSkills(data.smartCard.skills)
                // Tech Skills
-               setTechSkills(data.resume.techSkills)
+               setTechSkills(data.smartCard.techSkills)
                // Experiences
-               setExperiences(data.resume.experiences)
+               setExperiences(data.smartCard.experiences)
                // Internship
-               setInternships(data.resume.internships);
+               setInternships(data.smartCard.internships);
                // Educations
-               setEducations(data.resume.educations);
+               setEducations(data.smartCard.educations);
                // Projects
-               setProjects(data.resume.projects);
+               setProjects(data.smartCard.projects);
                // Interest
-               setInterest(data.resume.interest)
+               setInterest(data.smartCard.interest)
                // Volunteer Experience
-               setVolunteerExperiences(data.resume.volunteerExperiences);
+               setVolunteerExperiences(data.smartCard.volunteerExperiences);
                // Honors And Awards
-               setHonorsAndAwards(data.resume.honorsAndAwards);
+               setHonorsAndAwards(data.smartCard.honorsAndAwards);
                // Trainings
-               setTrainings(data.resume.trainings);
+               setTrainings(data.smartCard.trainings);
                // Certification=
-               setCertifications(data.resume.certifications);
+               setCertifications(data.smartCard.certifications);
                // License
-               setLicense(data.resume.license);
+               setLicense(data.smartCard.license);
                // Course
-               setCourses(data.resume.courses);
+               setCourses(data.smartCard.courses);
                // Patent
-               setPatents(data.resume.patents);
+               setPatents(data.smartCard.patents);
                // Publicatons
-               setPublications(data.resume.publications);
+               setPublications(data.smartCard.publications);
                // Workshop
-               setWorkshops(data.resume.workshops);
+               setWorkshops(data.smartCard.workshops);
                // References
-               setReferences(data.resume.references);
+               setReferences(data.smartCard.references);
                // Personnal Details
-               setPersonnalDetails(data.resume.personalDetails);
+               setPersonnalDetails(data.smartCard.personalDetails);
            }
        } catch (error) {
            console.log(error)
@@ -101,22 +102,21 @@ const WebResume = () => {
                     <img src={Profile} />
                     <div className='name'>{contact.firstName}{" "}{contact.lastName}</div>
                     {/* <div className='name'>Launch Your Dev</div> */}
-                    <div className='headline'>{headline}</div>
+                    {headline != '' && <div className='headline'>{headline}</div>}
                     <div className='details'>
-                        <Link to={`mailto:${contact.email}`} className="email"><i className="fa fa-envelope" aria-hidden="true"></i></Link>
-                        <Link to={`tel:${contact.phone}`} className="phone"><i className="fa fa-phone" aria-hidden="true"></i></Link>
-                        {/* <span>{contact.address}</span> */}
-                        <Link to={contact.linkedinId} className="linkedin"><i className="fa fa-linkedin" aria-hidden="true"></i></Link>
+                        {contact.email != "" && <Link to={`mailto:${contact.email}`} className="email"><i className="fa fa-envelope" aria-hidden="true"></i></Link>}
+                        {contact.phone != "" && <Link to={`tel:${contact.phone}`} className="phone"><i className="fa fa-phone" aria-hidden="true"></i></Link>}
+                        {contact.linkedinId != "" && <Link to={contact.linkedinId} className="linkedin"><i className="fa fa-linkedin" aria-hidden="true"></i></Link>}
                     </div>
                 </div>
             </div>
-            <div className='section section-two'>
+            {summary != "" && <div className='section section-two'>
                 <div className='summary'>
                     <h4>Summary</h4>
                     <div>{summary}</div>
                 </div>
-            </div>
-            <div className='section section-three'>
+            </div>}
+            {experiences.length > 0 && <div className='section section-three'>
                 <div className='experience common'>
                     <h4>Experience</h4>
                     {experiences?.map((exp, index) => {
@@ -139,8 +139,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-four'>
+            </div>}
+            {volunteerExperiences.length > 0 && <div className='section section-four'>
                 <div className='volunteer-experience common'>
                     <h4>Volunteer Experience</h4>
                     {volunteerExperiences?.map((vExp, index) => {
@@ -163,8 +163,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-five'>
+            </div>}
+            {workshops.length > 0 && <div className='section section-five'>
                 <div className='workshop common'>
                     <h4>Workshop</h4>
                     {workshops?.map((wShop, index) => {
@@ -187,8 +187,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-six'>
+            </div>}
+            {internships.length > 0 && <div className='section section-six'>
                 <div className='internship common'>
                     <h4>Internship</h4>
                     {internships?.map((intern, index) => {
@@ -211,8 +211,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-skills'>
+            </div>}
+            {skills.length > 0 && <div className='section section-skills'>
                 <h4 className='skills-heading'>Skills</h4>
                 <div className='skills'>
                     {skills.map((skill, index) => {
@@ -224,8 +224,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-skills'>
+            </div>}
+            {techSkills.length > 0 && <div className='section section-skills'>
                 <h4 className='skills-heading'>Tech Skills</h4>
                 <div className='skills'>
                     {techSkills.map((tSkill, index) => {
@@ -237,8 +237,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-seven'>
+            </div>}
+            {honorsAndAwards.length > 0 && <div className='section section-seven'>
                 <div className='honors-awards'>
                     <h4>Honors And Awards</h4>
                     {honorsAndAwards.map((honorAndAward) => {
@@ -254,8 +254,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-eight'>
+            </div>}
+            {projects.length > 0 && <div className='section section-eight'>
                 <div className='project common'>
                     <h4>Project</h4>
                     {projects?.map((proj, index) => {
@@ -277,8 +277,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-nine'>
+            </div>}
+            {publications.length > 0 && <div className='section section-nine'>
                 <div className='publications common'>
                     <h4>Publicaton</h4>
                     {publications?.map((publication, index) => {
@@ -298,8 +298,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-ten'>
+            </div>}
+            {patents.length > 0 && <div className='section section-ten'>
                 <div className='patents common'>
                     <h4>Patent</h4>
                     {patents?.map((patent, index) => {
@@ -317,8 +317,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-eleven'>
+            </div>}
+            {trainings.length > 0 && <div className='section section-eleven'>
                 <div className='trainings common'>
                     <h4>Training</h4>
                     {trainings?.map((training, index) => {
@@ -341,8 +341,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-twele'>
+            </div>}
+            {courses.length > 0 && <div className='section section-twele'>
                 <div className='courses common'>
                     <h4>Course</h4>
                     {courses?.map((course, index) => {
@@ -365,8 +365,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-thirteen'>
+            </div>}
+            {certifications.length > 0 && <div className='section section-thirteen'>
                 <div className='certifications common'>
                     <h4>Certification</h4>
                     {certifications?.map((certification, index) => {
@@ -389,8 +389,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-fourteen'>
+            </div>}
+            {license.name != "" && <div className='section section-fourteen'>
                 <div className='license common'>
                     <h4>License</h4>
                     <div className='licen common-details'>
@@ -404,8 +404,8 @@ const WebResume = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='section section-fifteen'>
+            </div>}
+            {educations.length > 0 && <div className='section section-fifteen'>
                 <div className='education common'>
                     <h4>Education</h4>
                     {educations?.map((edu, index) => {
@@ -428,8 +428,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-seventeen'>
+            </div>}
+            {interest.length > 0 && <div className='section section-seventeen'>
                 <h4>Interest</h4>
                 <div className='interest'>
                     {/* <span></span> */}
@@ -442,8 +442,8 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
-            <div className='section section-sixteen'>
+            </div>}
+            {references.length > 0 && <div className='section section-sixteen'>
                 <div className='reference'>
                     <h4>Reference</h4>
                     {references?.map((ref, index) => {
@@ -461,17 +461,17 @@ const WebResume = () => {
                         )
                     })}
                 </div>
-            </div>
+            </div>}
             <div className='section section-seventeen'>
                 <div className='personnal-details common'>
                     <h4>Personal Details</h4>
                     <div className='properties'>
                         <div className='property-one'></div>
                         <div className='property-name'>
-                            <div className='property-nam'>Language Known</div>
-                            <div className='property-nam'>Date Of Birth</div>
-                            <div className='property-nam'>Nationality</div>
-                            <div className='property-nam'>Passport</div>
+                            {personnalDetails?.languageKnown?.length > 0 && <div className='property-nam'>Language Known</div>}
+                            {personnalDetails.dateOfBirth != "" && <div className='property-nam'>Date Of Birth</div>}
+                            {personnalDetails.nationality != "" && <div className='property-nam'>Nationality</div>}
+                            {personnalDetails.passport != "" && <div className='property-nam'>Passport</div>}
                         </div>
                         <div className='property-value'>
                             <div className='property-valu'>{personnalDetails?.languageKnown?.map(lang => {return <span>{lang}{", "}</span>})}</div>
@@ -485,6 +485,7 @@ const WebResume = () => {
             </div>
         </div>
      );
+     
 }
  
 export default WebResume;

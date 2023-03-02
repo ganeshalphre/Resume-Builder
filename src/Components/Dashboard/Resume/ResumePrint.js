@@ -35,8 +35,7 @@ const ResumeComponent = forwardRef((props, ref) => {
                 {resumeData?.contact?.phone &&<li>{resumeData?.contact?.phone}</li>}
                 {resumeData?.contact?.linkedinId &&<li>{resumeData?.contact?.linkedinId}</li>}
             </ul>
-            <h3 className="resume-header">Summary</h3>
-            <hr />
+            {resumeData?.summary != "" && <><h3 className="resume-header">Summary</h3><hr /></>}
             <p className="resume-summary-content">{resumeData?.summary}</p>
             {resumeData?.skills?.length > 0 &&  <><h3 className="resume-header">Skills</h3><hr /></>}
             {resumeData?.skills?.map(skill => {
@@ -57,8 +56,8 @@ const ResumeComponent = forwardRef((props, ref) => {
             })}
             
             {/* Experience */}
-            <h3 className="resume-header">Experience</h3>
-            <hr />
+            {resumeData?.experiences?.length > 0 && <><h3 className="resume-header">Experience</h3><hr /></>}
+            
             <div>
                 {resumeData?.experiences?.map(experience => {
                     let startedDate = experience.startedAt;
@@ -89,8 +88,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Volunteer */}
-            <h3 className="resume-header">Volunteer Experience</h3>
-            <hr />
+            {resumeData?.volunteerExperiences?.length > 0 && <><h3 className="resume-header">Volunteer Experience</h3><hr /></>}
             <div>
                 {resumeData?.volunteerExperiences?.map(volunteerExperience => {
                     let startedDate = volunteerExperience.startedAt;
@@ -120,8 +118,8 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Workshop */}
-            <h3 className="resume-header">Workshop</h3>
-            <hr />
+            {resumeData?.workshops?.length > 0 && <><h3 className="resume-header">Workshop</h3><hr /></>}
+            
             <div>
                 {resumeData?.workshops?.map(workshop => {
                     let startedDate = workshop.startedAt;
@@ -151,8 +149,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
             
             {/* Internship */}
-            <h3 className="resume-header">Internship</h3>
-            <hr />
+            {resumeData?.internships?.length > 0 && <><h3 className="resume-header">Internship</h3><hr /></>}
             <div>
                 {resumeData?.internships?.map(internship => {
                     let startedDate = internship.startedAt;
@@ -183,8 +180,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Honor & Awards */}
-            <h3 className="resume-header">Honor & Awards</h3>
-            <hr />
+            {resumeData?.honorsAndAwards?.length > 0 && <><h3 className="resume-header">Honor & Awards</h3><hr /></>}
             <div>
                 <div className="resume-sub-details">
                     <ul className="responsibilities">
@@ -196,8 +192,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
              {/* Projects */}
-             <h3 className="resume-header">Projects</h3>
-            <hr />
+             {resumeData?.projects?.length > 0 && <><h3 className="resume-header">Projects</h3><hr /></>}
             <div>
                 {resumeData?.projects?.map(project => {
                     let startedDate = project.startedAt;
@@ -223,8 +218,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Publication */}
-            <h3 className="resume-header">Publication</h3>
-            <hr />
+            {resumeData?.publications?.length > 0 && <><h3 className="resume-header">Publication</h3><hr /></>}
             <div>
                 {resumeData?.publications?.map(publication=> {
                     return (
@@ -246,8 +240,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Patent */}
-            <h3 className="resume-header">Patents</h3>
-            <hr />
+            {resumeData?.patents?.length > 0 && <><h3 className="resume-header">Patents</h3><hr /></>}
             <div>
                 {resumeData?.patents?.map(patent=> {
                     return (
@@ -270,8 +263,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Training */}
-            <h3 className="resume-header">Training</h3>
-            <hr />
+            {resumeData?.trainings?.length > 0 && <><h3 className="resume-header">Training</h3><hr /></>}
             <div>
                 {resumeData?.trainings?.map(training => {
                     let startedDate = training.startedAt;
@@ -294,8 +286,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Course */}
-            <h3 className="resume-header">Course</h3>
-            <hr />
+            {resumeData.courses?.length > 0 && <><h3 className="resume-header">Course</h3><hr /></>}
             <div>
                 {resumeData?.courses?.map(course=> {
                     let startedDate = course.startedAt;
@@ -318,8 +309,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Certification */}
-            <h3 className="resume-header">Certification</h3>
-            <hr />
+            {resumeData?.certification?.length > 0 && <><h3 className="resume-header">Certification</h3><hr /></>}
             <div>
                 {resumeData?.certifications?.map(certification=> {
                     let startedDate = certification.startedAt;
@@ -342,8 +332,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* License */}
-            <h3 className="resume-header">License</h3>
-            <hr />
+            {resumeData?.license?.name != "" && <><h3 className="resume-header">License</h3><hr /></>}
             <div>
                 <div className="resume-sub-details">
                     <ul>
@@ -359,8 +348,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Education */}
-            <h3 className="resume-header">Education</h3>
-            <hr />
+            {resumeData?.educations?.length > 0 && <><h3 className="resume-header">Education</h3><hr /></>}
             <div>
                 {resumeData?.educations?.map(education => {
                     let startedDate = education.startedAt;
@@ -383,8 +371,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Interest */}
-            <h3 className="resume-header">Interest</h3>
-            <hr />
+            {resumeData?.interest?.length > 0 && <><h3 className="resume-header">Interest</h3><hr /></>}
             <div>
                 <ul>
                     <div className="resume-sub-details">
@@ -398,8 +385,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             
             
             {/* Reference */}
-            <h3 className="resume-header">Reference</h3>
-            <hr />
+            {resumeData?.reference?.length > 0 && <><h3 className="resume-header">Reference</h3><hr /></>}
             <div>
                 {resumeData?.references?.map(reference=> {
                     return (
@@ -418,8 +404,7 @@ const ResumeComponent = forwardRef((props, ref) => {
             </div>
 
             {/* Personal Details */}
-            <h3 className="resume-header">Personal Details</h3>
-            <hr />
+            {resumeData.personalDetails?.dateOfBirth != "" && <><h3 className="resume-header">Personal Details</h3><hr /></>}
             <div>
                 <div className="resume-sub-details">
                     <ul>

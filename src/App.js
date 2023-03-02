@@ -12,8 +12,12 @@ import ResumePDF from './Components/Dashboard/Resume/ResumePDF';
 import ResumeCreate from './Components/Dashboard/Resume/ResumeCreate';
 import ResumeEdit from './Components/Dashboard/Resume/ResumeEdit';
 import WebResume from './Components/Dashboard/WebResume';
-import SmartCard from './Components/Dashboard/SmartCard/card';
+import SmartCard from './Components/Dashboard/SmartCard/Card';
 import Dashboard from './Components/Dashboard';
+import SmartCardCreate from './Components/Dashboard/SmartCard/SmartCardCreate';
+import SmartCardEdit from './Components/Dashboard/SmartCard/SmartCardEdit';
+import SmartCardHome from './Components/Dashboard/SmartCard';
+import Files from './Components/Dashboard/Files';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -36,7 +40,13 @@ function App() {
         <Route exact path='/dashboard/web-resume/:id' element={<WebResume />} />
 
         {/* Smart Card */}
+        <Route exact path='/dashboard/create-smart-card' element={<SmartCardCreate />} />
+        <Route exact path='/dashboard/smart-card-home/:id' element={<SmartCardHome />} />
+        <Route exact path='/dashboard/edit-smart-card/:id' element={<SmartCardEdit />} />
         <Route exact path='/dashboard/smart-card/:id' element={<SmartCard />} />
+
+        {/* Files */}
+        <Route exact path="/dashboard/files" element={<Files />} />
       </Routes>                                                                                           
     </div>
   );
