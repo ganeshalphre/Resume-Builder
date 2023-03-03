@@ -18,6 +18,7 @@ import SmartCardCreate from './Components/Dashboard/SmartCard/SmartCardCreate';
 import SmartCardEdit from './Components/Dashboard/SmartCard/SmartCardEdit';
 import SmartCardHome from './Components/Dashboard/SmartCard';
 import Files from './Components/Dashboard/Files';
+import Payment from './Components/payment';
 
 function App() {
   const token = localStorage.getItem("token");
@@ -47,6 +48,8 @@ function App() {
 
         {/* Files */}
         <Route exact path="/dashboard/files" element={<Files />} />
+
+        <Route exact path="/payment" element={<Payment />} />
       </Routes>                                                                                           
     </div>
   );

@@ -70,15 +70,15 @@ const SmartCard = () => {
         <div className="SmartCard">
             <div id="node" className="card">
                 <div>
-                    <div className="card-name">{firstName}{" "} {lastName}</div>
-                    <div className="card-headline">{headline}</div>
-                    <div className="card-mobile-email"><span><i class="fa fa-phone" aria-hidden="true"></i>{" "}{mobile}</span><span><i class="fa fa-envelope" aria-hidden="true"></i>{" "}{email}</span></div>
+                    <div>{firstName}{" "} {lastName}</div>
+                    <div>{headline}</div>
+                    <div><span>{mobile}</span><span>{" "}{email}</span></div>
                 </div>
-                <div className="web-resume-qr-code">
+                <div>
                     <QRCode value={`http://localhost:3000/dashboard/web-resume/${smartCardId}`} fgColor="#fff" bgColor="#000" size="400" />
                 </div>
             </div>
-            <button className="card-download" onClick={(e) => handleCaptureClick(e)}>Download</button>
+            <button onClick={(e) => handleCaptureClick(e)}>Download</button>
         </div>
      );
 }

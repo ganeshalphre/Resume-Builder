@@ -3,11 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactToPrint from 'react-to-print';
 import '../../StyleSheets/tabel.css'
+import '../../StyleSheets/dashboard.css'
 import ResumeComponent from '../Resume/ResumePrint';
 
 const Files = () => {
     const [resumeData, setResumeData] = useState([]);
     const [cardData, setCardData] = useState([]);
+    const [inputId, setInputId] = useState(null);
+
+    const [name, setName] = useState("");
 
     const componentRef = useRef(new Array());
 
@@ -69,6 +73,40 @@ const Files = () => {
         )
     }
 
+    const updateResume = async(e, id) => {
+        e.preventDefault();
+        const d = {
+            fileName: name
+        }
+        try {
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-resume-name/${id}`, d);
+            console.log({data});
+            if(data.success) {
+                setResumeData(data.resumes);
+                setInputId(null);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const updateCard = async(e, id) => {
+        e.preventDefault();
+        const d = {
+            fileName: name
+        }
+        try {
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-smartcard-name/${id}`, d);
+            console.log({data});
+            if(data.success) {
+                setCardData(data.smartCards);
+                setInputId(null);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const cardEdit = (e, id) => {
         e.preventDefault();
         navigate(`/dashboard/edit-smart-card/${id}`);
@@ -90,6 +128,11 @@ const Files = () => {
     const cardDownload = (e, id) => {
         e.preventDefault();
     }
+
+    const changeInputId = (e, id) => {
+        e.preventDefault();
+        setInputId(id);
+    }
  
     return ( 
         <div className="Files">
@@ -102,10 +145,11 @@ const Files = () => {
                 <tbody>
                     {resumeData.map((data, index) => {
                         const {fileName, _id} = data;
-                        console.log(index, componentRef.current);
+                        // console.log(index, componentRef.current);
                         return (
                             <tr key={index}>
-                                <td data-label="name">{fileName}</td>
+                                {inputId != _id && <td data-label="name" className='file-name'><span>{fileName}</span>{" "}<i class="fa fa-pencil" aria-hidden="true" onClick={e => changeInputId(e, _id)}></i></td>}
+                                {inputId == _id && <td data-label="name" className='file-name'><input type="text" defaultValue={fileName} onChange={e => setName(e.target.value)}  />{" "}<i class="fa fa-floppy-o" aria-hidden="true" onClick={e => updateResume(e, _id)}></i></td>}
                                 <td data-label="edit" onClick={e => resumeEdit(e, _id)}>Edit</td>
                                 <td data-label="download" onClick={e => resumeDownload(e, _id, index)} >
                                 <div className='file-pdf'>
@@ -124,9 +168,11 @@ const Files = () => {
                         const {fileName, _id} = data;
                         return (
                             <tr key={index}>
-                                <td data-label="name">{fileName}</td>
+                                {inputId != _id && <td data-label="name" className='file-name'><span>{fileName}</span>{" "}<i class="fa fa-pencil" aria-hidden="true" onClick={e => changeInputId(e, _id)}></i></td>}
+                                {inputId == _id && <td data-label="name" className='file-name'><input type="text" defaultValue={fileName} onChange={e => setName(e.target.value)}  />{" "}<i class="fa fa-floppy-o" aria-hidden="true" onClick={e => updateCard(e, _id)}></i></td>}
+                                <td></td>
                                 <td data-label="edit" onClick={e => cardEdit(e, _id)}>Edit</td>
-                                <td data-label="download" onClick={e => cardDownload(e, _id)}>Download</td>
+                                {/* <td data-label="download" onClick={e => cardDownload(e, _id)}>Download</td> */}
                                 <td data-label="delete" onClick={e => cardDelete(e, _id)}>Delete</td>
                             </tr>
                         )

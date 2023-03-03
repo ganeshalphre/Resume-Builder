@@ -133,6 +133,9 @@ li:first-child {
     font-size: 1.6rem;
 }
 
+.file-pdf {
+    display: none;
+  }
 
 @media print {
     .ResumeComponent { 
