@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../StyleSheets/dashboard.css'
 const ResumeCreate = () => {
 
-    const [enter, setEnter] = useState("");
-
+    const token = localStorage.getItem("token")
     const navigate = useNavigate();
 
     // Contact
@@ -375,7 +374,10 @@ const ResumeCreate = () => {
             references.push({name: referenceName, designation: referenceDesignation, company: referenceCompany, email: referenceEmail});
         }
         console.log(trainings);
-            const d = {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
+        const d = {
             contact: {
                 firstName,
                 lastName,
@@ -423,7 +425,7 @@ const ResumeCreate = () => {
         }
         console.log({d});
         try {
-            const {data} = await axios.post(`${process.env.REACT_APP_API}/create-resume`, d);
+            const {data} = await axios.post(`${process.env.REACT_APP_API}create-resume`, d, {headers});
             console.log({data})
             if (data.success) {
                 navigate(`/dashboard/resume-pdf/${data.resume._id}`, {state: {id: data.resume._id}})

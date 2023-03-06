@@ -9,6 +9,7 @@ import Carousel from '../../Layouts/carousel';
 const WebResume = () => {
 
     const {id} = useParams();
+    const token = localStorage.getItem("token");
     const smartCardId = id;
 
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -42,8 +43,11 @@ const WebResume = () => {
     }, [])
 
     const getSmartCard = async() => {
+        const headers  = {
+            authorization: `Bearer ${token}`
+        }
         try {
-           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`)
+           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`, {headers})
            console.log({data});
            if(data.success) {
                console.log({smartCard: data.smartCard})

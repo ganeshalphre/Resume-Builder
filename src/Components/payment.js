@@ -53,7 +53,7 @@ const Payment = () => {
         // } catch (error) {
         //     console.log(error);
         // }
-        return fetch('http://localhost:3001/api/payment', {
+        return fetch(`${process.env.REACT_APP_API}payment`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",

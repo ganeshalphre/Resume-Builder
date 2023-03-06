@@ -6,7 +6,7 @@ const ResumeComponent = forwardRef((props, ref) => {
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
                         ]
-
+    const token = localStorage.getItem("token")
     useEffect(() => {
         getReumeById();
         console.log({resumeData})
@@ -15,8 +15,11 @@ const ResumeComponent = forwardRef((props, ref) => {
 
     const getReumeById = async() => {
         console.log(props.id);
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${props.id}`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${props.id}`, {headers})
             console.log(data);
             if(data.success) {
                 setResumeData(data.resume);

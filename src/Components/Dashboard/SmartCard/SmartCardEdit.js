@@ -7,6 +7,7 @@ const SmartCardEdit = () => {
 
     const {id} = useParams();
     const smartCardId = id;
+    const token = localStorage.getItem('token');
 
     const navigate = useNavigate();
 
@@ -155,8 +156,11 @@ const SmartCardEdit = () => {
     const [passport, setPassport] = useState("");
 
     const getSmartCard = async() => {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
          try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`, {headers})
             console.log({data});
             if(data.success) {
                 console.log({smartCard: data.smartCard})
@@ -458,6 +462,9 @@ const SmartCardEdit = () => {
             references.push({name: referenceName, designation: referenceDesignation, company: referenceCompany, email: referenceEmail});
         }
         console.log(trainings);
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
             const d = {
             contact: {
                 firstName,
@@ -501,7 +508,7 @@ const SmartCardEdit = () => {
         }
         console.log({d});
         try {
-            const {data} = await axios.put(`${process.env.REACT_APP_API}update-smartCard/${smartCardId}`, d);
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-smartCard/${smartCardId}`, d, {headers});
             console.log({data})
             if (data.success) {
                 navigate(`/dashboard/smart-card-home/${data.smartCard._id}`);

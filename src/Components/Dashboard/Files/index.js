@@ -7,6 +7,7 @@ import '../../StyleSheets/dashboard.css'
 import ResumeComponent from '../Resume/ResumePrint';
 
 const Files = () => {
+    const token = localStorage.getItem("token");
     const [resumeData, setResumeData] = useState([]);
     const [cardData, setCardData] = useState([]);
     const [inputId, setInputId] = useState(null);
@@ -23,8 +24,11 @@ const Files = () => {
     }, [])
 
     const getResumesDataByUser = async() => {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-all-resume-by-user`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-all-resume-by-user`, {headers});
             console.log(data);
             if(data.success) {
                 setResumeData(data.resumes);
@@ -35,8 +39,11 @@ const Files = () => {
     }
 
     const getCardsDataByUser = async() => {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-all-smartcard-by-user`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-all-smartcard-by-user`, {headers})
             console.log(data);
             if(data.success) {
                 setCardData(data.smartCards);
@@ -52,8 +59,11 @@ const Files = () => {
     }
     const resumeDelete = async(e, id) => {
         e.preventDefault();
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.delete(`${process.env.REACT_APP_API}delete-resume/${id}`);
+            const {data} = await axios.delete(`${process.env.REACT_APP_API}delete-resume/${id}`, {headers});
             console.log({data})
             if(data.success) {
                 setResumeData(data.resumes)
@@ -78,8 +88,11 @@ const Files = () => {
         const d = {
             fileName: name
         }
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.put(`${process.env.REACT_APP_API}update-resume-name/${id}`, d);
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-resume-name/${id}`, d, {headers});
             console.log({data});
             if(data.success) {
                 setResumeData(data.resumes);
@@ -95,8 +108,11 @@ const Files = () => {
         const d = {
             fileName: name
         }
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.put(`${process.env.REACT_APP_API}update-smartcard-name/${id}`, d);
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-smartcard-name/${id}`, d, {headers});
             console.log({data});
             if(data.success) {
                 setCardData(data.smartCards);
@@ -114,8 +130,11 @@ const Files = () => {
     const cardDelete = async(e, id) => {
         e.preventDefault();
         console.log("working");
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-            const {data} = await axios.delete(`${process.env.REACT_APP_API}delete-smartcard/${id}`);
+            const {data} = await axios.delete(`${process.env.REACT_APP_API}delete-smartcard/${id}`, {headers});
             console.log({data})
             if(data.success) {
                 setCardData(data.smartCards)

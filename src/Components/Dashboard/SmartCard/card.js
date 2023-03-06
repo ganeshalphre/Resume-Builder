@@ -12,6 +12,7 @@ import '../../StyleSheets/smartcard.css';
 const SmartCard = () => {
 
     const {id} = useParams();
+    const token = localStorage.getItem('token');
     const smartCardId = id;
 
     const [firstName, setFirstName] = useState("");
@@ -25,8 +26,11 @@ const SmartCard = () => {
     }, [])
 
     const getsmartCard = async() => {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
         try {
-           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`)
+           const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-smartcard/${smartCardId}`, {headers})
            console.log({data});
            if(data.success) {
                console.log({smartCard: data.smartCard})
@@ -42,37 +46,37 @@ const SmartCard = () => {
        }
    }
 
-//    const handleCaptureClick = async (e) => {
-//     e.preventDefault();
-//     console.log("working");
-//     const card =
-//       document.querySelector('.card');
-//     if (!card) return;
+   const handleCaptureClick = async (e) => {
+    e.preventDefault();
+    console.log("working");
+    const card =
+      document.querySelector('.card');
+    if (!card) return;
 
-//     const canvas = await html2canvas(card);
-//     const dataURL = canvas.toDataURL('image/png');
-//     downloadjs(dataURL, 'card.png', 'image/png');
-//   };
-   const handleCaptureClick = () => {
-    var node = document.getElementById('node');
+    const canvas = await html2canvas(card);
+    const dataURL = canvas.toDataURL('image/png');
+    downloadjs(dataURL, 'card.png', 'image/png');
+  };
+//    const handleCaptureClick = () => {
+//     var node = document.getElementById('node');
 
-    htmlToImage.toPng(node)
-    .then(function (dataUrl) {
-        var img = new Image();
-        img.src = dataUrl;
-        document.body.appendChild(img);
-    })
-    .catch(function (error) {
-        console.error('oops, something went wrong!', error);
-    });
-   }
+//     htmlToImage.toPng(node)
+//     .then(function (dataUrl) {
+//         var img = new Image();
+//         img.src = dataUrl;
+//         document.body.appendChild(img);
+//     })
+//     .catch(function (error) {
+//         console.error('oops, something went wrong!', error);
+//     });
+//    }
     return ( 
         <div className="SmartCard">
             <div id="node" className="card">
                 <div>
-                    <div>{firstName}{" "} {lastName}</div>
-                    <div>{headline}</div>
-                    <div><span>{mobile}</span><span>{" "}{email}</span></div>
+                    <div className="card-name">{firstName}{" "} {lastName}</div>
+                    <div className="card-headline">{headline}</div>
+                    <div className="card-mobile-email"><span><i class="fa fa-phone" aria-hidden="true"></i>{mobile}</span><span><i class="fa fa-envelope" aria-hidden="true"></i>{email}</span></div>
                 </div>
                 <div>
                     <QRCode value={`http://localhost:3000/dashboard/web-resume/${smartCardId}`} fgColor="#fff" bgColor="#000" size="400" />

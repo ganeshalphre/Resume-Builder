@@ -6,6 +6,7 @@ import '../../StyleSheets/dashboard.css'
 const SmartCardCreate = () => {
 
     const navigate = useNavigate();
+    const token = localStorage.getItem("token");
 
     // Contact
     const [firstName, setFirstName] = useState("");
@@ -359,6 +360,9 @@ const SmartCardCreate = () => {
             references.push({name: referenceName, company: referenceCompany, email: referenceEmail});
         }
         console.log(trainings);
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
             const d = {
             contact: {
                 firstName,
@@ -406,7 +410,7 @@ const SmartCardCreate = () => {
         }
         console.log({d});
         try {
-            const {data} = await axios.post(`${process.env.REACT_APP_API}/create-smartcard`, d);
+            const {data} = await axios.post(`${process.env.REACT_APP_API}create-smartcard`, d, {headers});
             console.log({data})
             if (data.success) {
                 console.log("success");

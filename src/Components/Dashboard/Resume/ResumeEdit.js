@@ -6,8 +6,7 @@ import '../../StyleSheets/dashboard.css'
 
 const ResumeEdit = () => {
 
-    const [enter, setEnter] = useState("");
-
+    const token = localStorage.getItem("token");
     const {id} = useParams();
     const resumeId = id;
 
@@ -166,8 +165,11 @@ const ResumeEdit = () => {
     const [passport, setPassport] = useState("");
 
     const getResume = async() => {
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
          try {
-            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${resumeId}`)
+            const {data} = await axios.get(`${process.env.REACT_APP_API}get-unique-resume/${resumeId}`, {headers})
             console.log({data});
             if(data.success) {
                 console.log({resume: data.resume})
@@ -476,6 +478,9 @@ const ResumeEdit = () => {
             references.push({name: referenceName, designation: referenceDesignation, company: referenceCompany, email: referenceEmail});
         }
         console.log(trainings);
+        const headers = {
+            authorization: `Bearer ${token}`
+        }
             const d = {
             contact: {
                 firstName,
@@ -519,7 +524,7 @@ const ResumeEdit = () => {
         }
         console.log({d});
         try {
-            const {data} = await axios.put(`${process.env.REACT_APP_API}update-resume/${resumeId}`, d);
+            const {data} = await axios.put(`${process.env.REACT_APP_API}update-resume/${resumeId}`, d, {headers});
             console.log({data})
             if (data.success) {
                 navigate(`/dashboard/resume-pdf/${data.resume._id}`, {state: {id: data.resume._id}})

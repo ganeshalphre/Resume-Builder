@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Signup = () => {
 
@@ -9,10 +11,10 @@ const Signup = () => {
     const [lastName, setLastName] = useState("");
     const [mobile, setMobile] = useState("");
     const [dob, setDOB] = useState("");
-    const [password, setPassword] = useState("");
+    const [mailSent, setMailSent] = useState(false)
 
     const [otp, setOTP] = useState("")
-    const [verified, setVerified] = useState(true)
+    const [verified, setVerified] = useState(false)
 
     const navigate = useNavigate();
 
@@ -21,10 +23,40 @@ const Signup = () => {
         const d = {
             email,
         }
+        if(email == "") {
+            return;
+        }
         try {
             const {data} = await axios.post(`${process.env.REACT_APP_API}/send-verification-mail`, d)
             if(data.success) {
               console.log("Mail Sent SuccessFully");
+              setMailSent(true);
+              toast.success(data.msg, {
+                position: 'top-right',
+                autoClose: 15000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                progressStyle: { background: '#E8DFD0' },
+                theme: 'colored',
+                style: { background: 'grey', fontSize: "1.6rem" },
+              });
+            } else {
+                setMailSent(false)
+                toast.error(data.msg, {
+                    position: 'top-right',
+                    autoClose: 15000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 0,
+                    progressStyle: { background: '#E8DFD0' },
+                    theme: 'colored',
+                    style: { background: 'grey', fontSize: "1.6rem" },
+                  });
             }
             console.log(data);
         } catch (error) {
@@ -35,13 +67,40 @@ const Signup = () => {
     const verifyOTP = async(e) => {
         e.preventDefault();
         const d = {
+            verifyType: "register",
             otp
         }
         try {
             const {data} = await axios.post(`${process.env.REACT_APP_API}/verify-otp`, d)
             if(data.success) {
               console.log("verification SuccessFully");
-              setVerified(false )
+              setVerified(true)
+              toast.success(data.msg, {
+                position: 'top-right',
+                autoClose: 15000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: 0,
+                progressStyle: { background: '#E8DFD0' },
+                theme: 'colored',
+                style: { background: 'grey', fontSize: "1.6rem" },
+              });
+            } else {
+                setMailSent(false)
+                toast.error(data.msg, {
+                    position: 'top-right',
+                    autoClose: 15000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 0,
+                    progressStyle: { background: '#E8DFD0' },
+                    theme: 'colored',
+                    style: { background: 'grey', fontSize: "1.6rem" },
+                  });
             }
             console.log(data);
         } catch (error) {
@@ -57,15 +116,40 @@ const Signup = () => {
             email,
             mobile,
             dob,
-            password
         }
         try {
             const {data} = await axios.post(`${process.env.REACT_APP_API}/signup`, d);
             console.log(data);
             if(data.success) {
                 localStorage.setItem("token", data.token);
-                navigate('/dashboard/resume');
-            }
+                navigate('/dashboard');
+                toast.success(data.msg, {
+                    position: 'top-right',
+                    autoClose: 15000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: 0,
+                    progressStyle: { background: '#E8DFD0' },
+                    theme: 'colored',
+                    style: { background: 'grey', fontSize: "1.6rem" },
+                  });
+                } else {
+                    setMailSent(false)
+                    toast.error(data.msg, {
+                        position: 'top-right',
+                        autoClose: 15000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: 0,
+                        progressStyle: { background: '#E8DFD0' },
+                        theme: 'colored',
+                        style: { background: 'grey', fontSize: "1.6rem" },
+                      });
+                }
         } catch (error) {
             console.log(error);
         }
@@ -95,17 +179,21 @@ const Signup = () => {
                             <label for="email">Email</label>
                         </div>
                         <div className="col-75">
-                            <input type="email" id="email" name="email" placeholder="Your email.." onChange={(e) => setEmail(e.target.value)}/>
+                            <input type="email" id="email" name="email" placeholder="Your email.." onChange={(e) => setEmail(e.target.value)} required/>
                         </div>
                         <div className="col-10">
                             <button onClick={e => sendOTP(e)} className="otp-button">Verify Email</button>
                         </div>
-                        <div className="col-10">
-                            <input type="text" id="email" name="email" placeholder="Enter OTP" onChange={(e) => setOTP(e.target.value)}/>
-                        </div>
-                        <div className="col-10">
-                            <button onClick={e => verifyOTP(e)} className="otp-button">{verified ? 'Submit' : 'Verified'}</button>
-                        </div>
+                        {mailSent && 
+                            <>
+                            <div className="col-10">
+                                <input type="text" id="email" name="email" placeholder="Enter OTP" onChange={(e) => setOTP(e.target.value)}/>
+                            </div>
+                            <div className="col-10">
+                                <button onClick={e => verifyOTP(e)} className="otp-button">{verified ? 'Submit' : 'Verified'}</button>
+                            </div>  
+                            </>
+                        }
                     </div>
                     <div className="row">
                         <div className="col-10">
@@ -124,38 +212,7 @@ const Signup = () => {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-10">
-                            <label for="password">Password</label>
-                        </div>
-                        <div className="col-75">
-                            <input type="password" id="password" name="password" placeholder="Your password.." onChange={(e) => setPassword(e.target.value)}/>
-                        </div>
-                    </div>
-                    {/* <div className="row">
-                        <div className="col-10">
-                            <label for="country">Country</label>
-                        </div>
-                        <div className="col-75">
-                            <select id="country" name="country">
-                                <option value="belgium">Belgium</option>
-                                <option value="canada">Canada</option>
-                                <option value="france">France</option>
-                                <option value="germany">Germany</option>
-                                <option value="portugal">Portugal</option>
-                                <option value="spain">Spain</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-10">
-                            <label for="subject">Your message..</label>
-                        </div>
-                        <div className="col-75">
-                            <textarea id="subject" name="subject" placeholder="Write something.." style={{height:"200px"}}></textarea>
-                        </div>
-                    </div> */}
-                    <div className="row">
-                        <button disabled={verified}>Submit</button>
+                        <button disabled={!verified}>Submit</button>
                     </div>
                 </form>
             </div>

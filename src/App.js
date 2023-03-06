@@ -28,8 +28,8 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/signup" element={<Signup />} />
-        <Route exact path="/forget-password" element={<ForgetPassword />} />
-        <Route exact path="/reset-password/:id" element={<ResetPassword />} />
+        {/* <Route exact path="/forget-password" element={<ForgetPassword />} />
+        <Route exact path="/reset-password/:id" element={<ResetPassword />} /> */}
 
         {/* Dashboard */}
         <Route exact path="/dashboard" element={<Dashboard />} />
